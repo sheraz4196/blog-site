@@ -3,14 +3,14 @@ import BlogCard from "./BlogCard";
 
 export default function SimilarBlogs({ similarBlogData }) {
   return (
-    <section className="bg-zinc-950 border-b border-white/10 pb-cutom-4">
+    <div className="flex items-center justify-center mb-9">
       <div className="max-container">
-        <div className="flex flex-wrap lg:flex-nowrap similar-blogs pt-14 lg:-mx-6">
+        <div className="mx-auto mt-16 grid grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 max-w-7xl">
           {similarBlogData?.map((blog, index) => (
             <BlogCard data={blog} key={index} />
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
