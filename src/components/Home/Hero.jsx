@@ -27,16 +27,7 @@ export default function Hero({ homeData }) {
   }, [search]);
 
   return (
-    <section className="pb-3 text-white pt-16 bg-zinc-950 relative home-hero-section">
-      <Image
-        src={"/images/home-hero-bg.png"}
-        alt="hero-background-image"
-        priority
-        // loading="lazy"
-        width={2000}
-        height={500}
-        className="absolute w-full h-full top-0 left-0 object-cover"
-      />
+    <section className="pb-3 text-white pt-16  relative home-hero-section">
       <div className="max-container min-h-52 pt-5 pb-10 relative">
         {homeData?.image?.fields?.file?.url && (
           <Image
@@ -48,7 +39,7 @@ export default function Hero({ homeData }) {
           />
         )}
         {homeData?.shortDescription && (
-          <h2 className="text-xl opacity-80 py-2 my-0 text-center">
+          <h2 className="text-xl opacity-80 py-2 my-0 text-center text-gray-700 dark:text-white">
             {homeData?.shortDescription}
           </h2>
         )}
@@ -58,7 +49,7 @@ export default function Hero({ homeData }) {
               type="text"
               placeholder="Search"
               value={search}
-              className="outline-none p-2 pr-9 w-full bg-white"
+              className="outline-none p-2 pr-9 w-full dark:bg-white bg-gray-700 placeholder:text-white dark:placeholder:text-gray-700"
               onChange={(e) => handleChange(e)}
             />
             {(search?.length > 0 || blogsList?.length > 0) && (
