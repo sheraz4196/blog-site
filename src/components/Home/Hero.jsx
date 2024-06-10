@@ -49,7 +49,7 @@ export default function Hero({ homeData }) {
               type="text"
               placeholder="Search"
               value={search}
-              className="outline-none p-2 pr-9 w-full dark:bg-white bg-gray-700 placeholder:text-white dark:placeholder:text-gray-700"
+              className="outline-none p-2 pr-9 w-full dark:bg-white bg-gray-200 border-gray-300 placeholder:text-white dark:placeholder:text-gray-700"
               onChange={(e) => handleChange(e)}
             />
             {(search?.length > 0 || blogsList?.length > 0) && (
