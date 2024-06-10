@@ -70,18 +70,24 @@ export default function Navbar({ commonData }) {
                 : ""
             }`}
           >
-            <Link href={"/"} className={`${
-        router.pathname === "/"
-          ? "text-white"
-          : "text-gray-900 dark:text-white"
-      } nav-link`}>
+            <Link
+              href={"/"}
+              className={`${
+                router.pathname === "/"
+                  ? "dark:text-white text-secondary"
+                  : "text-gray-900 dark:text-white"
+              } nav-link`}
+            >
               Home
             </Link>
-            <Link href={"/about"} className={`${
-        router.pathname === "/"
-          ? "text-white"
-          : "text-gray-900 dark:text-white"
-      } nav-link`}>
+            <Link
+              href={"/about"}
+              className={`${
+                router.pathname === "/about"
+                  ? "dark:text-white text-secondary"
+                  : "text-gray-900 dark:text-white"
+              } nav-link`}
+            >
               About
             </Link>
           </div>
@@ -101,7 +107,8 @@ export default function Navbar({ commonData }) {
           type="button"
           className="group rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
           onClick={() =>
-            theme == "dark" ? setTheme("light") : setTheme("dark")}
+            theme == "dark" ? setTheme("light") : setTheme("dark")
+          }
         >
           <SunIcon className="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 dark:hidden [@media(prefers-color-scheme:dark)]:fill-teal-50 [@media(prefers-color-scheme:dark)]:stroke-secondary [@media(prefers-color-scheme:dark)]:group-hover:fill-teal-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-secondary/70" />
           <MoonIcon className="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover:stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-teal-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-secondary" />
@@ -139,7 +146,7 @@ function SunIcon(props) {
         fill="none"
       />
     </svg>
-  )
+  );
 }
 
 function MoonIcon(props) {
@@ -152,5 +159,5 @@ function MoonIcon(props) {
         strokeLinejoin="round"
       />
     </svg>
-  )
+  );
 }
