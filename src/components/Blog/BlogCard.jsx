@@ -1,15 +1,12 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import Richtext from "../common/Richtext";
 import { convertDate } from "../../utils/convertdate";
 import { calculateReadingTime } from "../../utils/calculateReadingTime";
 import { Tooltip } from "react-tooltip";
 
 export default function BlogCard({ data, className }) {
-  const router = useRouter();
-
   return (
     <div className={`blog-card ${className}`}>
       <div className="blog-card-image-wrap">

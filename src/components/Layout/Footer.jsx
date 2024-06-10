@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 export default function Footer({ commonData }) {
-  console.log(commonData);
   return (
     <footer class="bg-white dark:bg-gray-700">
       <div class="mx-auto max-w-7xl overflow-hidden px-6 py-20 sm:py-24 lg:px-8">
