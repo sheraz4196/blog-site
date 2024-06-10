@@ -42,14 +42,14 @@ export default function BlogCard({ data, className }) {
           ))}
         </div>
         <Link href={`/${data?.fields?.slug}`} className="hover:text-current">
-          <h2 className="mt-0 text-2xl font-semibold leading-5 cursor-pointer">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl cursor-pointer mt-2">
             {data?.fields?.title}
           </h2>
         </Link>
         {data?.fields?.description && (
           <Link
             href={`/${data?.fields?.slug}`}
-            className="font-georgia hover:text-current mb-6 text-base leading-normal cursor-pointer"
+            className="font-georgia hover:text-current mb-6  cursor-pointer mt-2 text-lg leading-8"
           >
             <Richtext data={data?.fields?.description} truncate />
           </Link>
