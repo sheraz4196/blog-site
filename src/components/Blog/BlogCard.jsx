@@ -8,85 +8,94 @@ import { Tooltip } from "react-tooltip";
 
 export default function BlogCard({ data, className }) {
   return (
-    <div className={`blog-card ${className}`}>
-      <div className="blog-card-image-wrap">
-        <div>
-          {data?.fields?.image?.fields?.file?.url && (
-            <Link href={`/${data?.fields?.slug}`}>
-              <Image
-                src={"https:" + data?.fields?.image?.fields?.file?.url}
-                alt={data?.fields?.image?.fields?.title || "blog"}
-                width={className ? 800 : 310}
-                height={className ? 400 : 200}
-                className="h-full w-full object-cover rounded-t-sm cursor-pointer"
-              />
+    <article
+      className={`flex flex-col items-start justify-between ${className}`}
+    >
+      <div className="relative w-full">
+        {data?.fields?.image?.fields?.file?.url && (
+          <Link href={`/${data?.fields?.slug}`}>
+            <Image
+              src={"https:" + data?.fields?.image?.fields?.file?.url}
+              alt={data?.fields?.image?.fields?.title || "blog"}
+              layout="responsive"
+              width={800}
+              height={450}
+              className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2] cursor-pointer"
+            />
+          </Link>
+        )}
+        <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+      </div>
+      <div className="max-w-xl">
+        <div className="mt-8 flex items-center gap-x-4 text-xs">
+          <time
+            dateTime={data?.sys?.createdAt}
+            className="text-gray-500 dark:text-gray-400"
+          >
+            {convertDate(data?.sys?.createdAt)}
+          </time>
+          {data?.fields?.tags?.map((tag, index) => (
+            <Link
+              key={index}
+              href={`/tags/${tag?.fields?.slug}`}
+              className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+            >
+              {tag?.fields?.title}
+            </Link>
+          ))}
+        </div>
+        <div className="group relative">
+          <Link href={`/${data?.fields?.slug}`}>
+            <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600 dark:text-gray-100 dark:group-hover:text-gray-300 cursor-pointer">
+              <span className="absolute inset-0"></span>
+              {data?.fields?.title}
+            </h3>
+          </Link>
+          {data?.fields?.description && (
+            <Link
+              href={`/${data?.fields?.slug}`}
+              className="hover:text-current"
+            >
+              <p className="mt-5 line-clamp-3 text-sm leading-6 text-gray-600 dark:text-gray-300 cursor-pointer">
+                <Richtext data={data?.fields?.description} truncate />
+              </p>
             </Link>
           )}
         </div>
-      </div>
-      <div className="blog-card-content">
-        <div className="flex flex-wrap uppercase text-xs font-medium mt-4">
-          {data?.fields?.tags?.map((tag, index) => (
-            <span key={index}>
-              {index !== 0 && <span className="mr-1">, </span>}
-              <Link
-                href={`/tags/${tag?.fields?.slug}`}
-                className="hover:underline text-primary hover:text-primary"
-              >
-                {tag?.fields?.title}
-              </Link>
-            </span>
-          ))}
-        </div>
-        <Link href={`/${data?.fields?.slug}`} className="hover:text-current">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl cursor-pointer mt-2">
-            {data?.fields?.title}
-          </h2>
-        </Link>
-        {data?.fields?.description && (
-          <Link
-            href={`/${data?.fields?.slug}`}
-            className="font-georgia hover:text-current mb-6  cursor-pointer mt-2 text-lg leading-8"
-          >
-            <Richtext data={data?.fields?.description} truncate />
-          </Link>
-        )}
         {data?.fields?.authors?.length > 0 && (
-          <div className="flex items-center gap-2.5">
-            <div className="flex flex-wrap pl-1 author">
+          <div className="relative mt-8 flex items-center gap-x-4">
+            {data?.fields?.authors?.map((item, index) => (
+              <Link
+                key={index}
+                href={`/author/${item?.fields?.slug}`}
+                data-tooltip-id="author-tooltip"
+                data-tooltip-content={item?.fields?.name}
+              >
+                <Image
+                  src={"https:" + item?.fields?.image?.fields?.file?.url}
+                  alt="author"
+                  width={40}
+                  height={40}
+                  className="h-10 w-10 rounded-full bg-gray-100 dark:bg-gray-700"
+                />
+              </Link>
+            ))}
+            <div className="text-sm leading-6">
               {data?.fields?.authors?.map((item, index) => (
-                <Link
-                  href={`/author/${item?.fields?.slug}`}
+                <p
                   key={index}
-                  data-tooltip-id="author-tooltip"
-                  data-tooltip-content={item?.fields?.name}
-                  className="author-image border-2 border-white h-10 w-10 -mx-1 rounded-full cursor-pointer"
+                  className="font-semibold text-gray-900 dark:text-gray-100"
                 >
-                  <Image
-                    src={"https:" + item?.fields?.image?.fields?.file?.url}
-                    alt="author"
-                    width={36}
-                    height={36}
-                    className="rounded-full"
-                  />
-                </Link>
+                  <Link href={`/author/${item?.fields?.slug}`}>
+                    <span className="absolute inset-0"></span>
+                    {item?.fields?.name}
+                  </Link>
+                </p>
               ))}
-            </div>
-            <div className="author-details">
-              <div className="flex flex-wrap">
-                {data?.fields?.authors?.map((item, index) => (
-                  <span key={index}>
-                    {index !== 0 && <span className="mr-1">, </span>}
-                    <Link
-                      href={`/author/${item?.fields?.slug}`}
-                      className="text-muted-3 dark:text-muted-5 hover:text-secondary dark:hover:text-secondary hover:underline font-semibold text-xs uppercase"
-                    >
-                      {item?.fields?.name}
-                    </Link>
-                  </span>
-                ))}
-              </div>
-              <div className="gap-1 text-muted-4 text-xs uppercase  ">
+              <p className="text-gray-600 dark:text-gray-400">
+                Co-Founder / CTO
+              </p>
+              <div className="gap-1 text-muted-4 text-xs uppercase dark:text-gray-400">
                 <span>{convertDate(data?.sys?.createdAt)}</span>
                 <span className="mx-1">•</span>
                 <span>
@@ -99,6 +108,6 @@ export default function BlogCard({ data, className }) {
         )}
       </div>
       <Tooltip id="author-tooltip" />
-    </div>
+    </article>
   );
 }

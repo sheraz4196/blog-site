@@ -3,14 +3,14 @@ import BlogCard from "../Blog/BlogCard";
 
 export default function BlogsList({ blogs, currentPage }) {
   return (
-    <section className="max-w-7xl py-24 sm:py-32 flex flex-wrap mx-auto px-6 lg:px-0">
-      {blogs?.map((blog, index) => (
-        <BlogCard
-          data={blog}
-          key={index}
-          className={index === 0 && currentPage === 1 && "first-blog-card"}
-        />
-      ))}
-    </section>
+    <div className="flex items-center justify-center">
+      <div className="max-container">
+        <div className="mx-auto mt-16 grid grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3 max-w-7xl">
+          {blogs?.map((blog, index) => (
+            <BlogCard data={blog} key={index} />
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
