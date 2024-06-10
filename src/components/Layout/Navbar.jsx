@@ -74,7 +74,7 @@ export default function Navbar({ commonData }) {
               href={"/"}
               className={`${
                 router.pathname === "/"
-                  ? "dark:text-white text-secondary"
+                  ? "text-secondary"
                   : "text-gray-900 dark:text-white"
               } nav-link`}
             >
@@ -84,7 +84,7 @@ export default function Navbar({ commonData }) {
               href={"/about"}
               className={`${
                 router.pathname === "/about"
-                  ? "dark:text-white text-secondary"
+                  ? "text-secondary"
                   : "text-gray-900 dark:text-white"
               } nav-link`}
             >
