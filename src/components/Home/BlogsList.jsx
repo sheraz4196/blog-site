@@ -3,7 +3,7 @@ import BlogCard from "../Blog/BlogCard";
 
 export default function BlogsList({ blogs, currentPage }) {
   return (
-    <section className="max-w-7xl py-24 sm:py-32 flex flex-wrap mx-auto">
+    <section className="max-w-7xl py-24 sm:py-32 flex flex-wrap mx-auto px-6 lg:px-0">
       {blogs?.map((blog, index) => (
         <BlogCard
           data={blog}
