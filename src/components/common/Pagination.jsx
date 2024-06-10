@@ -9,7 +9,7 @@ export default function Pagination({ totalPages, setCurrentPage }) {
     setCurrentPage(pageNo);
   };
   return (
-    <div className="pagination-area">
+    <div className="pagination-area mt-36 mb-10">
       <menu className="nav-links">
         <ReactPaginate
           breakLabel="..."
