@@ -1,36 +1,37 @@
-import { useRouter } from "next/router"
-import React, { useContext, useEffect, useState } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { AppContext } from "@/context/AppContextProvider"
-import { useTheme } from "next-themes"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { library } from "@fortawesome/fontawesome-svg-core"
-import { fab } from "@fortawesome/free-brands-svg-icons"
-import SunIcon from "../icons/sun-icon"
-import MoonIcon from "../icons/moon-icon"
+import { useRouter } from "next/router";
+import React, { useContext, useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { AppContext } from "@/context/AppContextProvider";
+import { useTheme } from "next-themes";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import SunIcon from "../icons/sun-icon";
+import MoonIcon from "../icons/moon-icon";
 export default function Navbar({ commonData }) {
-  library.add(fab)
-  const { theme, setTheme } = useTheme()
-  const router = useRouter()
-  const [showBlogTitle, setShowBlogTitle] = useState(false)
-  const { currentBlog } = useContext(AppContext)
+  library.add(fab);
+  const { theme, setTheme } = useTheme();
+  const router = useRouter();
+  const [showBlogTitle, setShowBlogTitle] = useState(false);
+  const { currentBlog } = useContext(AppContext);
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-      setShowBlogTitle(scrollTop > 120 ? true : false)
-    }
+      const scrollTop =
+        window.pageYOffset || document.documentElement.scrollTop;
+      setShowBlogTitle(scrollTop > 120 ? true : false);
+    };
     router.pathname === "/[blog-details]" &&
       window.addEventListener("scroll", handleScroll, {
         passive: true,
         capture: true,
-      })
+      });
     return () => {
       router.pathname === "/[blog-details]" &&
-        window.removeEventListener("scroll", handleScroll)
-    }
-  }, [])
-  const logo = commonData?.logo?.fields
+        window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  const logo = commonData?.logo?.fields;
 
   return (
     <nav
@@ -53,17 +54,7 @@ export default function Navbar({ commonData }) {
               />
             </Link>
           )}
-          <div
-            className={`flex items-center max-w-full ${
-              router.pathname === "/[blog-details]"
-                ? `absolute top-1/2 left-32 md:left-24 transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] ${
-                    showBlogTitle
-                      ? "opacity-0 invisible translate-y-[-175%]"
-                      : "opacity-100 visible -translate-y-1/2"
-                  }`
-                : ""
-            }`}
-          >
+          <div className={`flex items-center max-w-full `}>
             <Link
               href={"/"}
               className={`${
@@ -121,5 +112,5 @@ export default function Navbar({ commonData }) {
         </div>
       </div>
     </nav>
-  )
+  );
 }
