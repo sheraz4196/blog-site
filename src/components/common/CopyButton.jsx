@@ -15,7 +15,7 @@ function CopyButton({ code }) {
           }, 3000);
         }}
       >
-        <div className="text-white dark:text-black flex items-center gap-2">
+        <div className="text-white flex items-center gap-2">
           {copied && <p className="text-sm font-apple_system">copied</p>}
           <FaRegCopy />
         </div>
