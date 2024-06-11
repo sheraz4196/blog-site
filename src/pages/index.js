@@ -32,7 +32,7 @@ export default function Home({ blogsData, homeData }) {
     <>
       <Seo data={homeData?.seo.fields} />
 
-      <main className="pb-5">
+      <section className="pb-5">
         {homeData && <Hero homeData={homeData} />}
         <BlogsList blogs={blogs} currentPage={currentPage} />
         {loading ? (
@@ -45,7 +45,7 @@ export default function Home({ blogsData, homeData }) {
             />
           </div>
         )}
-      </main>
+      </section>
     </>
   );
 }
