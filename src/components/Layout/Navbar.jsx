@@ -1,37 +1,36 @@
-import { useRouter } from "next/router";
-import React, { useContext, useEffect, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { AppContext } from "@/context/AppContextProvider";
-import { useTheme } from "next-themes";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import SunIcon from "../icons/sun-icon";
-import MoonIcon from "../icons/moon-icon";
+import { useRouter } from "next/router"
+import React, { useContext, useEffect, useState } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import { AppContext } from "@/context/AppContextProvider"
+import { useTheme } from "next-themes"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { library } from "@fortawesome/fontawesome-svg-core"
+import { fab } from "@fortawesome/free-brands-svg-icons"
+import SunIcon from "../icons/sun-icon"
+import MoonIcon from "../icons/moon-icon"
 export default function Navbar({ commonData }) {
-  library.add(fab);
-  const { theme, setTheme } = useTheme();
-  const router = useRouter();
-  const [showBlogTitle, setShowBlogTitle] = useState(false);
-  const { currentBlog } = useContext(AppContext);
+  library.add(fab)
+  const { theme, setTheme } = useTheme()
+  const router = useRouter()
+  const [showBlogTitle, setShowBlogTitle] = useState(false)
+  const { currentBlog } = useContext(AppContext)
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop =
-        window.pageYOffset || document.documentElement.scrollTop;
-      setShowBlogTitle(scrollTop > 120 ? true : false);
-    };
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
+      setShowBlogTitle(scrollTop > 120 ? true : false)
+    }
     router.pathname === "/[blog-details]" &&
       window.addEventListener("scroll", handleScroll, {
         passive: true,
         capture: true,
-      });
+      })
     return () => {
       router.pathname === "/[blog-details]" &&
-        window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-  const logo = commonData?.logo?.fields;
+        window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
+  const logo = commonData?.logo?.fields
 
   return (
     <nav
@@ -100,13 +99,13 @@ export default function Navbar({ commonData }) {
         </div>
         <button
           type="button"
-          className="group rounded-full bg-white/90 px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
+          className="group rounded-full bg-white/90 px-2 py-1 sm:px-3 sm:py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition dark:bg-zinc-800/90 dark:ring-white/10 dark:hover:ring-white/20"
           onClick={() =>
             theme == "dark" ? setTheme("light") : setTheme("dark")
           }
         >
-          <SunIcon className="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 dark:hidden [@media(prefers-color-scheme:dark)]:fill-teal-50 [@media(prefers-color-scheme:dark)]:stroke-secondary [@media(prefers-color-scheme:dark)]:group-hover:fill-teal-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-secondary/70" />
-          <MoonIcon className="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover:stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-teal-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-secondary" />
+          <SunIcon className="h-5 w-5 sm:h-6 sm:w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 dark:hidden [@media(prefers-color-scheme:dark)]:fill-teal-50 [@media(prefers-color-scheme:dark)]:stroke-secondary [@media(prefers-color-scheme:dark)]:group-hover:fill-teal-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-secondary/70" />
+          <MoonIcon className="hidden h-5 w-5 sm:h-6 sm:w-6 fill-zinc-700 stroke-zinc-500 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover:stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-teal-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-secondary" />
         </button>
         <div className="hidden md:flex items-center flex-shrink-0">
           {commonData?.topSocialLinks?.map((item, index) => (
@@ -122,5 +121,5 @@ export default function Navbar({ commonData }) {
         </div>
       </div>
     </nav>
-  );
+  )
 }

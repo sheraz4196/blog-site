@@ -1,7 +1,7 @@
-import Seo from "@/components/common/seo";
-import { getPagesData } from "@/lib/api";
-import Image from "next/image";
-import React from "react";
+import Seo from "@/components/common/seo"
+import { getPagesData } from "@/lib/api"
+import Image from "next/image"
+import React from "react"
 
 export default function about({ data }) {
   return (
@@ -44,7 +44,7 @@ export default function about({ data }) {
           </svg>
         </div>
         <div class="mx-auto grid grid-cols-1 gap-x-8 gap-y-16 lg:mx-auto lg:max-w-6xl lg:grid-cols-2 lg:items-start lg:gap-y-10">
-          <div class="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+          <div class="order-2 sm:order-1 lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
             <div class="lg:pr-4">
               <div class="lg:max-w-lg">
                 <p class="text-base font-semibold leading-7 text-primary">
@@ -65,7 +65,7 @@ export default function about({ data }) {
               </div>
             </div>
           </div>
-          <div class="-ml-12 mt-12 p-12 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+          <div class="order-1 sm:order-2 sm:-ml-12 mt-12 sm:p-12 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
             <Image
               src={
                 "https://images.ctfassets.net/og4jsxsu76rm/35gpuzr5Ki5FqLnuKqorfL/1c110bff2538bd696d710bc1f46b2e5c/giphy.gif"
@@ -73,10 +73,10 @@ export default function about({ data }) {
               alt="image"
               width={768}
               height={500}
-              className="w-[38rem] max-w-none rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10"
+              className="w-full sm:w-[38rem] max-w-none rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10"
             />
           </div>
-          <div class="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+          <div class="order-3 sm:order-3 lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
             <div class="lg:pr-4">
               <div class="max-w-xl text-base leading-7 text-gray-700 dark:text-white lg:max-w-lg">
                 <p>
@@ -165,19 +165,19 @@ export default function about({ data }) {
         </div>
       </div>
     </>
-  );
+  )
 }
 export async function getServerSideProps({}) {
-  const data = await getPagesData("about");
+  const data = await getPagesData("about")
   if (!data?.items[0]?.fields) {
     return {
       redirect: {
         destination: `/500?url=/`,
         permanent: true,
       },
-    };
+    }
   }
   return {
     props: { data: data?.items[0]?.fields || null },
-  };
+  }
 }
