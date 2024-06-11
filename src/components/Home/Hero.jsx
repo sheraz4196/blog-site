@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from "react"
-import Image from "next/image"
-import { searchBlogsData } from "@/lib/api"
-import { IoClose } from "react-icons/io5"
-import Link from "next/link"
+import React, { useEffect, useState } from "react";
+import Image from "next/image";
+import { searchBlogsData } from "@/lib/api";
+import { IoClose } from "react-icons/io5";
+import Link from "next/link";
 
 export default function Hero({ homeData }) {
-  const [search, setSearch] = useState("")
-  const [blogsList, setBlogsList] = useState([])
+  const [search, setSearch] = useState("");
+  const [blogsList, setBlogsList] = useState([]);
 
   const handleChange = async (e) => {
-    let value = e.target.value
+    let value = e.target.value;
     if (value?.length > 0) {
-      setSearch(value)
-      const data = await searchBlogsData(value)
-      value?.length !== 0 && setBlogsList(data)
+      setSearch(value);
+      const data = await searchBlogsData(value);
+      value?.length !== 0 && setBlogsList(data);
     } else {
-      setSearch("")
-      setBlogsList([])
+      setSearch("");
+      setBlogsList([]);
     }
-  }
+  };
 
   useEffect(() => {
     if (search?.length === 0 || !search) {
-      setBlogsList([])
+      setBlogsList([]);
     }
-  }, [search])
+  }, [search]);
 
   return (
-    <section className="pb-3 text-white pt-16  relative home-hero-section">
+    <section className="pb-3 text-white pt-16 relative home-hero-section">
       <div class="absolute inset-0 -z-10 overflow-hidden">
         <svg
           class="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 dark:stroke-gray-700 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]"
@@ -84,14 +84,14 @@ export default function Hero({ homeData }) {
               type="text"
               placeholder="Search"
               value={search}
-              className="outline-none p-2.5 pr-9 w-full dark:bg-gray-100  border  rounded-lg border-gray-400 placeholder:text-gray-400 dark:placeholder:text-gray-700 focus:ring-[1px] focus:ring-gray-400"
+              className="outline-none p-2 pr-9 w-full dark:bg-gray-100  border  rounded-lg border-gray-400 placeholder:text-gray-400 dark:placeholder:text-gray-700 focus:ring-[1px] focus:ring-gray-400"
               onChange={(e) => handleChange(e)}
             />
             {(search?.length > 0 || blogsList?.length > 0) && (
               <button
                 onClick={() => {
-                  setSearch("")
-                  setBlogsList([])
+                  setSearch("");
+                  setBlogsList([]);
                 }}
                 className="absolute right-2 top-1/2 -translate-y-1/2 text-xl"
               >
@@ -112,15 +112,15 @@ export default function Hero({ homeData }) {
                       <Link
                         key={i}
                         onClick={() => {
-                          setSearch("")
-                          setBlogsList([])
+                          setSearch("");
+                          setBlogsList([]);
                         }}
                         href={`/${item?.fields?.slug}`}
                         className="text-left py-2 border-b last:border-none hover:text-link-hover"
                       >
                         {item?.fields?.title}
                       </Link>
-                    )
+                    );
                   })}
                 </div>
               )}
@@ -129,5 +129,5 @@ export default function Hero({ homeData }) {
         </div>
       </div>
     </section>
-  )
+  );
 }
