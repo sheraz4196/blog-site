@@ -1,8 +1,8 @@
-import React from "react"
-import Link from "next/link"
+import React from "react";
+import Link from "next/link";
 export default function Footer({ commonData }) {
   return (
-    <footer class="bg-white dark:bg-black border-t border-secondary">
+    <footer class="bg-white dark:bg-black border-t border-secondary dark:border-gray-800">
       <div class="mx-auto max-w-7xl overflow-hidden p-5">
         {/* <nav
           class="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
@@ -150,5 +150,5 @@ export default function Footer({ commonData }) {
         </p>
       </div>
     </footer>
-  )
+  );
 }
