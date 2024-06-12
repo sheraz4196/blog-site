@@ -1,37 +1,32 @@
+// pages/_app.js
 import Footer from "@/components/Layout/Footer";
 import Navbar from "@/components/Layout/Navbar";
 import { AppContextProvider } from "@/context/AppContextProvider";
-import { getPagesData } from "@/lib/api";
 import "@/styles/globals.css";
 import "react-tooltip/dist/react-tooltip.css";
-import { Helmet } from "react-helmet";
 import { ThemeProvider } from "next-themes";
 import ScrollToTop from "@/components/common/ScrollButton";
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { CommonDataProvider, useCommonData } from "@/context/commonDataContext";
 
-export default function App({ Component, pageProps, commonData }) {
-  const favicon = commonData?.favicon?.fields?.file?.url;
+function App({ Component, pageProps }) {
+  const commonData = useCommonData();
+
   return (
-    <>
-      <Helmet>{favicon && <link rel="icon" href={favicon} />}</Helmet>
-      <ThemeProvider attribute="class">
-        <AppContextProvider>
+    <ThemeProvider attribute="class">
+      <AppContextProvider>
+        <CommonDataProvider>
           <Navbar commonData={commonData} />
           <Component {...pageProps} />
           <Footer commonData={commonData} />
           <ScrollToTop />
-        </AppContextProvider>
-      </ThemeProvider>
+        </CommonDataProvider>
+      </AppContextProvider>
       <Analytics />
-      <SpeedInsights/>
-    </>
+      <SpeedInsights />
+    </ThemeProvider>
   );
 }
 
-App.getInitialProps = async () => {
-  const commonData = await getPagesData("common");
-  return {
-    commonData: commonData?.items[0]?.fields || null,
-  };
-};
+export default App;
