@@ -8,6 +8,8 @@ import Image from "next/image";
 import getYoutubeVideoId from "@/utils/getYouTubeVideoId";
 import getHeadingString from "@/utils/getHedingString";
 import Link from "next/link";
+import parse from "html-react-parser";
+import DOMPurify from "dompurify";
 import { useTheme } from "next-themes";
 export default function Richtext({ data, truncate }) {
   const { theme } = useTheme();
@@ -168,12 +170,16 @@ export default function Richtext({ data, truncate }) {
       [BLOCKS.PARAGRAPH]: (node, children) => {
         const containsIframe = /<iframe.*<\/iframe>/i.test(children[0]);
         if (containsIframe) {
-          const sanitizedHTML = DOMPurify.sanitize(children[0]);
-          return (
-            <div className="mb-6">
-              <div dangerouslySetInnerHTML={{ __html: sanitizedHTML }} />
-            </div>
-          );
+          if (typeof children[0] === "string") {
+            const sanitizedHTML = DOMPurify.sanitize(children[0]);
+            const parsedContent = parse(sanitizedHTML);
+
+            return (
+              <div className="mb-6">
+                <div>{parsedContent}</div>
+              </div>
+            );
+          }
         }
         const paragraphContent = children.reduce((acc, child) => {
           if (typeof child === "string") {
