@@ -7,9 +7,11 @@ import Seo from "@/components/common/seo";
 
 export default function BlogDetailsPage({ slug, blogData, similarBlogData }) {
   const { setCurrentBlog } = useContext(AppContext);
+
   useEffect(() => {
     setCurrentBlog(blogData?.fields?.title);
-  }, [slug]);
+  }, [blogData]); // Make sure to use blogData to avoid unnecessary re-renders
+
   return (
     <>
       <Seo data={blogData?.fields} />
@@ -25,7 +27,6 @@ export default function BlogDetailsPage({ slug, blogData, similarBlogData }) {
 
 export async function getServerSideProps({ params }) {
   const slug = params["blog-details"];
-  // Request All apis at same place
   const [blogData, similarBlogData] = await Promise.all([
     getSlugPagData("blogPost", slug),
     getSimilarBlogs(slug),
@@ -35,15 +36,16 @@ export async function getServerSideProps({ params }) {
     return {
       redirect: {
         destination: `/500?url=${slug}`,
-        permanent: true,
+        permanent: false, // Changed to false, as redirects to 500 are usually not permanent
       },
     };
   }
+
   return {
     props: {
       slug: slug || null,
       blogData: blogData[0] || null,
-      similarBlogData: similarBlogData?.items || null,
+      similarBlogData: similarBlogData?.items || [],
     },
   };
 }
