@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 export default function Footer({ commonData }) {
   return (
-    <footer class="bg-white dark:bg-black border-t border-secondary dark:border-gray-800">
+    <footer class="bg-white dark:bg-black border-t dark:border-gray-800">
       <div class="mx-auto max-w-7xl overflow-hidden p-5">
         {/* <nav
           class="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
@@ -146,7 +146,7 @@ export default function Footer({ commonData }) {
           </Link>
         </div> */}
         <p class="text-center text-xs leading-5 text-gray-500 dark:text-white">
-          &copy; 2024 Tech&Sec, All rights reserved.
+          &copy; 2024 Techandsec, All rights reserved.
         </p>
       </div>
     </footer>
