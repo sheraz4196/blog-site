@@ -203,6 +203,7 @@ export default function Richtext({ data, truncate }) {
         }, []);
 
         const styledChildren = paragraphContent.map((part, index) => {
+          console.log("Part", part);
           if (typeof part === "string") {
             if (part.startsWith("<c>") && part.endsWith("</c>")) {
               const text = part.substring(3, part.length - 4);
@@ -214,6 +215,12 @@ export default function Richtext({ data, truncate }) {
                   {text}
                 </span>
               );
+            } else if (
+              part === "<br>" ||
+              part === "<br/>" ||
+              part === "<br />"
+            ) {
+              return <br key={index} />;
             } else {
               return <span key={index}>{part}</span>;
             }
