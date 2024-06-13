@@ -21,15 +21,6 @@ const getEntries = async (query) => {
   }
 };
 
-const validateData = (schema, data) => {
-  try {
-    return schema.parse(data);
-  } catch (error) {
-    handleErrors(error, "Validation error");
-    return null;
-  }
-};
-
 export const getFilteredBlogs = async (field, id) => {
   const post = await getEntries({
     content_type: "blogPost",
