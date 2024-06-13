@@ -159,6 +159,7 @@ export default function Richtext({ data, truncate }) {
         );
       },
       [BLOCKS.TABLE_HEADER_CELL]: (node, children) => {
+        console.log(children, "tavbeee");
         return (
           <th className="text-center border border-zinc-300 text-zinc-100 dark:border-zinc-400 px-3 py-1.5 uppercase bg-zinc-950 dark:text-black dark:bg-zinc-100 font-bold font-apple_system text-xs tracking-wide leading-8">
             {children}

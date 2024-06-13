@@ -399,3 +399,7 @@ span {
     padding: 0 0 40px;
   }
 }
+th div,
+td div {
+  margin-bottom: 0px !important;
+}
