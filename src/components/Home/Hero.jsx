@@ -74,7 +74,7 @@ export default function Hero({ homeData, blogs }) {
             {homeData?.shortDescription}
           </h2>
         )}
-        <div className="relative max-w-sm mx-auto mt-7 text-black">
+        <div className="relative max-w-sm mx-auto mt-7 text-black z-50">
           <div className="w-full relative">
             <input
               type="text"
