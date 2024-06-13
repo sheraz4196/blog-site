@@ -14,7 +14,7 @@ export const TagSchema = z.object({
     id: z.string(),
   }),
   fields: z.object({
-    name: z.string(),
+    name: z.string().optional(),
   }),
 });
 

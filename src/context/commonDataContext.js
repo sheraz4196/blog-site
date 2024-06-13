@@ -4,9 +4,9 @@ import { fetchCommonData } from "@/lib/fetchCommonData";
 
 const CommonDataContext = createContext(null);
 
-export const useCommonData = () => {
+export function useCommonData() {
   return useContext(CommonDataContext);
-};
+}
 
 export const CommonDataProvider = ({ children }) => {
   const [commonData, setCommonData] = useState(null);

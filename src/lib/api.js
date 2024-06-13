@@ -76,8 +76,8 @@ export async function getSlugPagData(contentType, slug) {
     "fields.slug": slug,
   });
   if (post.items) {
-    const validatePost = BlogPostSchema.parse(post.items);
-    console.log("Posts Data Here======>", post.items);
+    const validatePost = post.items.map((post) => BlogPostSchema.parse(post));
+    console.log("Posts Data Here======>", post);
     return post.items;
   }
   console.log(`Error getting post for ${contentType.name}.`);
