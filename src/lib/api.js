@@ -108,27 +108,3 @@ export async function getFilteredBlogsByTagData(id) {
 export async function getFilteredBlogsByAuthorData(id) {
   return getFilteredBlogs("authors", id);
 }
-
-export async function searchBlogsData(search) {
-  if (!search?.length) {
-    return [];
-  }
-  const url = `${process.env.BLOG_SITE_BASE_URL}/spaces/${spaceId}/entries?content_type=blogPost&query=${search}`;
-
-  try {
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Error fetching posts: ${response.statusText}`);
-    }
-    const data = await response.json();
-    const posts = data.items || [];
-    return posts;
-  } catch (error) {
-    handleErrors(error, "Error Fetching Posts");
-    return [];
-  }
-}

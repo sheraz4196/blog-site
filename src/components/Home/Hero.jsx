@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { searchBlogsData } from "@/lib/api";
 import { IoClose } from "react-icons/io5";
 import Link from "next/link";
 
