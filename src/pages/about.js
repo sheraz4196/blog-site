@@ -73,7 +73,7 @@ export default function about({ data }) {
               alt="image"
               width={768}
               height={500}
-              className="w-full sm:w-[38rem] max-w-none rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10"
+              className="w-full sm:w-[38rem] md:max-w-lg max-w-none bg-gray-900 shadow-xl ring-1 ring-gray-400/10"
             />
           </div>
           <div class="order-3 sm:order-3 lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">

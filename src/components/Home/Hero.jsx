@@ -4,27 +4,23 @@ import { searchBlogsData } from "@/lib/api";
 import { IoClose } from "react-icons/io5";
 import Link from "next/link";
 
-export default function Hero({ homeData }) {
+export default function Hero({ homeData, blogs }) {
   const [search, setSearch] = useState("");
   const [blogsList, setBlogsList] = useState([]);
-
-  const handleChange = async (e) => {
+  console.log(blogs, "Blogs");
+  const handleChange = (e) => {
     let value = e.target.value;
+    setSearch(value);
+
     if (value?.length > 0) {
-      setSearch(value);
-      const data = await searchBlogsData(value);
-      value?.length !== 0 && setBlogsList(data);
+      const filteredBlogs = blogs.filter((blog) =>
+        blog.fields.title.toLowerCase().includes(value.toLowerCase())
+      );
+      setBlogsList(filteredBlogs);
     } else {
-      setSearch("");
-      setBlogsList([]);
+      setBlogsList(blogs);
     }
   };
-
-  useEffect(() => {
-    if (search?.length === 0 || !search) {
-      setBlogsList([]);
-    }
-  }, [search]);
 
   return (
     <section className="pb-3 text-white pt-16 relative home-hero-section">
@@ -84,7 +80,7 @@ export default function Hero({ homeData }) {
               type="text"
               placeholder="Search"
               value={search}
-              className="outline-none p-2 pr-9 w-full dark:bg-gray-100  border  rounded-lg border-gray-400 placeholder:text-gray-400 dark:placeholder:text-gray-700 focus:ring-[1px] focus:ring-gray-400"
+              className="outline-none p-2 pr-9 w-full dark:bg-gray-100 border border-gray-400 placeholder:text-gray-400 dark:placeholder:text-gray-700 focus:ring-[1px] focus:ring-gray-400"
               onChange={(e) => handleChange(e)}
             />
             {(search?.length > 0 || blogsList?.length > 0) && (
@@ -106,22 +102,20 @@ export default function Hero({ homeData }) {
                   <p>No search results found.</p>
                 </div>
               ) : (
-                <div className="flex flex-col gap-2 px-5 py-2 max-h-60 overflow-y-auto">
-                  {blogsList?.map((item, i) => {
-                    return (
-                      <Link
-                        key={i}
-                        onClick={() => {
-                          setSearch("");
-                          setBlogsList([]);
-                        }}
-                        href={`/${item?.fields?.slug}`}
-                        className="text-left py-2 border-b last:border-none hover:text-link-hover"
-                      >
-                        {item?.fields?.title}
-                      </Link>
-                    );
-                  })}
+                <div className="flex flex-col gap-2 px-5 py-2 max-h-60 overflow-y-auto z-[200]">
+                  {blogsList?.map((item, index) => (
+                    <Link
+                      key={index}
+                      onClick={() => {
+                        setSearch("");
+                        setBlogsList([]);
+                      }}
+                      href={`/${item?.fields?.slug}`}
+                      className="text-left py-2 border-b last:border-none hover:text-link-hover"
+                    >
+                      {item?.fields?.title}
+                    </Link>
+                  ))}
                 </div>
               )}
             </div>

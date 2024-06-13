@@ -1,20 +1,20 @@
-import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-import React, { useMemo } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import CopyButton from "./CopyButton";
-import { arta, docco } from "react-syntax-highlighter/dist/cjs/styles/hljs";
-import Image from "next/image";
-import getYoutubeVideoId from "@/utils/getYouTubeVideoId";
-import getHeadingString from "@/utils/getHedingString";
-import Link from "next/link";
-import parse from "html-react-parser";
-import DOMPurify from "dompurify";
-import { useTheme } from "next-themes";
+import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types"
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+import React, { useMemo } from "react"
+import SyntaxHighlighter from "react-syntax-highlighter"
+import CopyButton from "./CopyButton"
+import { arta, docco } from "react-syntax-highlighter/dist/cjs/styles/hljs"
+import Image from "next/image"
+import getYoutubeVideoId from "@/utils/getYouTubeVideoId"
+import getHeadingString from "@/utils/getHedingString"
+import Link from "next/link"
+import parse from "html-react-parser"
+import DOMPurify from "dompurify"
+import { useTheme } from "next-themes"
 export default function Richtext({ data, truncate }) {
-  const { theme } = useTheme();
-  const codeStyle = theme === "dark" ? docco : arta;
-  console.log(theme);
+  const { theme } = useTheme()
+  const codeStyle = theme === "dark" ? docco : arta
+  console.log(theme)
   const options = useMemo(() => ({
     renderMark: {
       [MARKS.BOLD]: (text) => <b className="font-bold">{text}</b>,
@@ -33,12 +33,12 @@ export default function Richtext({ data, truncate }) {
               {text?.props?.children || text || ""}
             </SyntaxHighlighter>
           </div>
-        );
+        )
       },
     },
     renderNode: {
       [INLINES.EMBEDDED_ENTRY]: (node) => {
-        const { position, image } = node.data.target.fields;
+        const { position, image } = node.data.target.fields
         return (
           <Image
             src={"https:" + image?.fields?.file?.url}
@@ -53,10 +53,10 @@ export default function Richtext({ data, truncate }) {
                 : ""
             }`}
           />
-        );
+        )
       },
       [BLOCKS.EMBEDDED_ENTRY]: (node) => {
-        const { position, image } = node.data.target.fields;
+        const { position, image } = node.data.target.fields
         return (
           <div className="">
             <Image
@@ -73,11 +73,11 @@ export default function Richtext({ data, truncate }) {
               }`}
             />
           </div>
-        );
+        )
       },
       [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        const { file, title } = node?.data?.target?.fields;
-        const fileType = file.contentType.split("/")[0];
+        const { file, title } = node?.data?.target?.fields
+        const fileType = file.contentType.split("/")[0]
         switch (fileType) {
           case "video":
             return (
@@ -85,7 +85,7 @@ export default function Richtext({ data, truncate }) {
                 <source src={`https://${file?.url}`} type={file.contentType} />
                 Your browser does not support the video tag.
               </video>
-            );
+            )
           case "image":
             return (
               <img
@@ -94,23 +94,23 @@ export default function Richtext({ data, truncate }) {
                 className="my-5"
                 loading="lazy"
               />
-            );
+            )
           case "audio":
             return (
               <audio controls className="my-10">
                 <source src={`https://${file?.url}`} type={file.contentType} />
                 Your browser does not support the audio tag.
               </audio>
-            );
+            )
           default:
-            return <p>Unsupported file type</p>;
+            return <p>Unsupported file type</p>
         }
       },
 
       [INLINES.HYPERLINK]: ({ data }, children) => {
-        let videoId;
+        let videoId
         if (data?.uri.includes("youtube"))
-          videoId = getYoutubeVideoId(data?.uri);
+          videoId = getYoutubeVideoId(data?.uri)
         if (videoId) {
           return (
             <iframe
@@ -123,18 +123,23 @@ export default function Richtext({ data, truncate }) {
               loading="lazy"
               className="w-full max-w-3xl mx-auto h-60 md:h-custom-450 my-10"
             />
-          );
+          )
         } else {
           return (
             <>
               <Link
-                href={data?.uri}
+                href={
+                  data?.uri && data?.uri.startsWith("https://")
+                    ? data?.uri
+                    : `https://${data?.uri}`
+                }
+                target="_blank"
                 className="max-w-full break-words hover:underline text-secondary"
               >
                 {children}
               </Link>
             </>
-          );
+          )
         }
       },
       [BLOCKS.QUOTE]: (node, children) => {
@@ -144,56 +149,61 @@ export default function Richtext({ data, truncate }) {
               {children}
             </p>
           </blockquote>
-        );
+        )
       },
       [BLOCKS.TABLE]: (node, children) => {
         return (
           <div className="max-w-full overflow-x-auto hide-scrollbar">
             <table className="my-7">{children}</table>
           </div>
-        );
+        )
       },
       [BLOCKS.TABLE_HEADER_CELL]: (node, children) => {
         return (
           <th className="text-center border border-zinc-300 text-zinc-100 dark:border-zinc-400 px-3 py-1.5 uppercase bg-zinc-950 dark:text-black dark:bg-zinc-100 font-bold font-apple_system text-xs tracking-wide leading-8">
             {children}
           </th>
-        );
+        )
       },
       [BLOCKS.TABLE_CELL]: (node, children) => {
         return (
           <td className="text-center border border-zinc-300 text-zinc-300 dark:text-zinc-950 dark:border-zinc-400 px-3 py-1.5 font-apple_system text-base leading-8 bg-zinc-700 dark:bg-white">
             {children}
           </td>
-        );
+        )
       },
       [BLOCKS.PARAGRAPH]: (node, children) => {
-        const containsIframe = /<iframe.*<\/iframe>/i.test(children[0]);
+        const containsIframe = /<iframe.*<\/iframe>/i.test(children[0])
         if (containsIframe) {
           if (typeof children[0] === "string") {
-            const sanitizedHTML = DOMPurify.sanitize(children[0]);
-            const parsedContent = parse(sanitizedHTML);
+            const sanitizedHTML = DOMPurify.sanitize(children[0])
+            const parsedContent = parse(sanitizedHTML)
 
             return (
               <div className="mb-6">
                 <div>{parsedContent}</div>
               </div>
-            );
+            )
           }
         }
         const paragraphContent = children.reduce((acc, child) => {
+          // Add each part to the accumulator array
           if (typeof child === "string") {
-            const parts = child.split(/(<c>.*?<\/c>)/);
-            acc.push(...parts);
+            const parts = child.split(/(<c>.*?<\/c>)/)
+            // Add each part to the accumulator array
+            acc.push(...parts)
           } else {
-            acc.push(child);
+            acc.push(child)
           }
-          return acc;
-        }, []);
+          return acc
+        }, [])
         const styledChildren = paragraphContent.map((part, index) => {
           if (typeof part === "string") {
+            // Check if the part is enclosed in <c> tags
             if (part.startsWith("<c>") && part.endsWith("</c>")) {
-              const text = part.substring(3, part.length - 4);
+              // Extract the text within <c> tags
+              const text = part.substring(3, part.length - 4)
+              // Apply CSS styling to the text
               return (
                 <span
                   key={index}
@@ -201,67 +211,69 @@ export default function Richtext({ data, truncate }) {
                 >
                   {text}
                 </span>
-              );
+              )
             } else {
-              return <span key={index}>{part}</span>;
+              // If not enclosed in <c> tags, render the text as-is
+              return <span key={index}>{part}</span>
             }
           } else {
-            return part;
+            // If the part is not a string, render it as-is
+            return part
           }
-        });
+        })
 
-        return <div className="mb-6">{styledChildren}</div>;
+        return <div className="mb-6">{styledChildren}</div>
       },
       [BLOCKS.HEADING_1]: (node, children) => {
-        const headingId = getHeadingString(children[0]);
+        const headingId = getHeadingString(children[0])
         return (
           <h2 id={headingId} className="mb-r mt-20">
             {children}
           </h2>
-        );
+        )
       },
       [BLOCKS.HEADING_2]: (node, children) => {
-        const headingId = getHeadingString(children[0]);
+        const headingId = getHeadingString(children[0])
         return (
           <h2 id={headingId} className="mb-6">
             {children}
           </h2>
-        );
+        )
       },
       [BLOCKS.HEADING_3]: (node, children) => {
-        const headingId = getHeadingString(children[0]);
+        const headingId = getHeadingString(children[0])
         return (
           <h3 id={headingId} className="mb-5">
             {children}
           </h3>
-        );
+        )
       },
       [BLOCKS.HEADING_4]: (node, children) => {
-        const headingId = getHeadingString(children[0]);
+        const headingId = getHeadingString(children[0])
         return (
           <h4 id={headingId} className="mb-4">
             {children}
           </h4>
-        );
+        )
       },
       [BLOCKS.HEADING_5]: (node, children) => {
-        const headingId = getHeadingString(children[0]);
+        const headingId = getHeadingString(children[0])
         return (
           <h5 id={headingId} className="mb-3">
             {children}
           </h5>
-        );
+        )
       },
       [BLOCKS.HEADING_6]: (node, children) => {
-        const headingId = getHeadingString(children[0]);
+        const headingId = getHeadingString(children[0])
         return (
           <h6 id={headingId} className="mb-2">
             {children}
           </h6>
-        );
+        )
       },
     },
-  }));
+  }))
 
   return (
     <>
@@ -269,17 +281,18 @@ export default function Richtext({ data, truncate }) {
         {data
           ? truncate
             ? data?.content?.map((rtNode, index) => {
-                let truncatedText = "";
+                // Truncate the description text to 130 characters
+                let truncatedText = ""
                 if (rtNode?.nodeType === "paragraph" && index === 0) {
                   truncatedText = rtNode?.content.reduce((acc, textNode) => {
                     if (acc.length < 130 && textNode?.nodeType === "text") {
-                      const remainingCharacters = 130 - acc.length;
-                      acc += textNode?.value?.substring(0, remainingCharacters);
+                      const remainingCharacters = 130 - acc.length
+                      acc += textNode?.value?.substring(0, remainingCharacters)
                     }
-                    return acc;
-                  }, "");
+                    return acc
+                  }, "")
                   if (rtNode?.content.length > 0) {
-                    truncatedText += "...";
+                    truncatedText += "..."
                   }
                 }
                 return (
@@ -306,17 +319,17 @@ export default function Richtext({ data, truncate }) {
                       options
                     )}
                   </React.Fragment>
-                );
+                )
               })
             : data?.content?.map((rtNode, index) => {
                 return (
                   <React.Fragment key={index}>
                     {documentToReactComponents(rtNode, options)}
                   </React.Fragment>
-                );
+                )
               })
           : ""}
       </div>
     </>
-  );
+  )
 }

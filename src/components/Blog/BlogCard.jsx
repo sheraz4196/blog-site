@@ -19,33 +19,24 @@ export default function BlogCard({ data, className }) {
               layout="responsive"
               width={800}
               height={450}
-              className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2] cursor-pointer"
+              className="aspect-[3/2] w-full bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[16/10] cursor-pointer"
             />
           </Link>
         )}
-        <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10"></div>
+        {/* <div className="absolute inset-0 ring-1 ring-inset ring-gray-900/10"></div> */}
       </div>
       <div className="max-w-xl p-1">
-        <div className="mt-5 flex items-center gap-x-4 text-xs">
-          <time
-            dateTime={data?.sys?.createdAt}
-            className="text-gray-500 dark:text-gray-400"
-          >
-            {convertDate(data?.sys?.createdAt)}
-            <span className="mx-1">•</span>
-            <span>
-              {calculateReadingTime(data?.fields?.description?.content)} min
-              read
-            </span>
-          </time>
+        <div className="mt-5 flex items-center gap-x-2.5 text-xs">
           {data?.fields?.tags?.map((tag, index) => (
-            <Link
-              key={index}
-              href={`/tags/${tag?.fields?.slug}`}
-              className="relative z-10 rounded-full bg-gray-100 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
-            >
-              {tag?.fields?.title}
-            </Link>
+            <React.Fragment key={index}>
+              {index > 0 && <span>•</span>}
+              <Link
+                href={`/tags/${tag?.fields?.slug}`}
+                className="relative z-10 font-medium text-ternary"
+              >
+                {tag?.fields?.title}
+              </Link>
+            </React.Fragment>
           ))}
         </div>
         <div className="group relative w-full flex flex-col gap-1">
@@ -126,12 +117,13 @@ export default function BlogCard({ data, className }) {
                   ))
                 )}
               </div>
-
-              <p className="text-gray-600 dark:text-gray-400">
-                Co-Founder / CTO
-              </p>
               <div className="gap-1 text-muted-4 text-xs uppercase dark:text-gray-400">
-                {/* <span>{convertDate(data?.sys?.createdAt)}</span> */}
+                <span>{convertDate(data?.sys?.createdAt)}</span>
+                <span className="mx-1">•</span>
+                <span>
+                  {calculateReadingTime(data?.fields?.description?.content)} min
+                  read
+                </span>
               </div>
             </div>
           </div>

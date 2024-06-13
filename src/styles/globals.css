@@ -205,12 +205,12 @@ footer a:hover {
 
 .CodeBlockClass {
   position: relative;
-  @apply p-8 border rounded-3xl border-white/10 bg-black dark:bg-black/40;
+  @apply p-8 border border-white/10 bg-black dark:bg-white dark:text-black;
 }
 
 .CodeBlockClass pre {
   background: inherit !important;
-  @apply bg-black/40 dark:bg-black !text-gray-100;
+  @apply bg-black/40 dark:bg-white text-gray-100 dark:text-black;
 }
 
 .CopyButtonClass {
