@@ -78,7 +78,7 @@ export default function Navbar({ commonData }) {
           </div>
           {router.pathname === "/[blog-details]" && (
             <span
-              className={`absolute top-1/2 left-20  md:left-28 flex items-center max-w-full transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] ${
+              className={`absolute top-1/2 left-20 ml-6  md:left-28 flex items-center max-w-full transition-all duration-1000 ease-[cubic-bezier(0.19,1,0.22,1)] ${
                 showBlogTitle
                   ? "opacity-100 visible -translate-y-1/2"
                   : "opacity-0 invisible translate-y-[175%]"
