@@ -24,21 +24,15 @@ const getEntries = async (query) => {
   }
 };
 
-const validateData = (schema, data) => {
-  try {
-    return schema.parse(data);
-  } catch (error) {
-    handleErrors(error, "Validation error");
-    return null;
-  }
-};
-
 export const getFilteredBlogs = async (field, id) => {
   const post = await getEntries({
     content_type: "blogPost",
     [`fields.${field}.sys.id`]: id,
   });
-  if (post?.items) return post?.items;
+  if (post.items) {
+    const validatePost = post.items.map((post) => BlogPostSchema.parse(post));
+    return validatePost;
+  }
   console.log(`Error getting Blog Post.`);
 };
 
