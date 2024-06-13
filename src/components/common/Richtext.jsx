@@ -188,27 +188,24 @@ export default function Richtext({ data, truncate }) {
               </div>
             );
           } else {
-            <p>{children}</p>;
+            return <p>{children}</p>;
           }
         }
+
         const paragraphContent = children.reduce((acc, child) => {
-          // Add each part to the accumulator array
           if (typeof child === "string") {
-            const parts = child.split(/(<c>.*?<\/c>)/);
-            // Add each part to the accumulator array
+            const parts = child.split(/(<\/?br\s*\/?>|<c>.*?<\/c>)/);
             acc.push(...parts);
           } else {
             acc.push(child);
           }
           return acc;
         }, []);
+
         const styledChildren = paragraphContent.map((part, index) => {
           if (typeof part === "string") {
-            // Check if the part is enclosed in <c> tags
             if (part.startsWith("<c>") && part.endsWith("</c>")) {
-              // Extract the text within <c> tags
               const text = part.substring(3, part.length - 4);
-              // Apply CSS styling to the text
               return (
                 <span
                   key={index}
@@ -218,17 +215,16 @@ export default function Richtext({ data, truncate }) {
                 </span>
               );
             } else {
-              // If not enclosed in <c> tags, render the text as-is
               return <span key={index}>{part}</span>;
             }
           } else {
-            // If the part is not a string, render it as-is
             return part;
           }
         });
 
         return <div className="mb-6">{styledChildren}</div>;
       },
+
       [BLOCKS.HEADING_1]: (node, children) => {
         const headingId = getHeadingString(children[0]);
         return (
