@@ -1,3 +1,5 @@
+import { BlogPostSchema } from "@/schemas/zodTypes";
+
 const contentful = require("contentful");
 const spaceId = process.env.NEXT_PUBLIC_SPACE_ID;
 const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
@@ -73,7 +75,11 @@ export async function getSlugPagData(contentType, slug) {
     content_type: contentType,
     "fields.slug": slug,
   });
-  if (post.items) return post.items;
+  if (post.items) {
+    const validatePost = BlogPostSchema.parse(post.items);
+    console.log("Posts Data Here======>", post.items);
+    return post.items;
+  }
   console.log(`Error getting post for ${contentType.name}.`);
 }
 
