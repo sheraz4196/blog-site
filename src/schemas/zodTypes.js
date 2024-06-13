@@ -4,7 +4,7 @@ export const AuthorSchema = z.object({
     id: z.string(),
   }),
   fields: z.object({
-    name: z.string(),
+    name: z.string().optional(),
     bio: z.string().optional(),
   }),
 });
@@ -14,11 +14,18 @@ export const TagSchema = z.object({
     id: z.string(),
   }),
   fields: z.object({
-    name: z.string().optional(),
+    name: z.string({ message: "TagSchema Error" }).optional(),
   }),
 });
 
 export const BlogPostSchema = z.object({
+  metadata: z.object(
+    {
+      tags: z.array(z.object({})).optional(),
+    },
+    { message: "Metadata is Invalid" }
+  ),
+
   sys: z.object({
     id: z.string(),
     createdAt: z.string(),
@@ -27,8 +34,11 @@ export const BlogPostSchema = z.object({
   fields: z.object({
     title: z.string(),
     slug: z.string(),
-    body: z.string().optional(),
+    image: z.any().optional(),
+    tableOfContent: z.any().optional(),
+    description: z.any().optional(),
+    authors: z.array(AuthorSchema).optional(),
     tags: z.array(TagSchema).optional(),
-    author: AuthorSchema.optional(),
+    seo: z.any().optional(),
   }),
 });
