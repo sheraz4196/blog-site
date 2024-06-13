@@ -14,7 +14,10 @@ const handleErrors = (error, message) => {
 };
 const getEntries = async (query) => {
   try {
-    const data = await client.getEntries(query);
+    const filterQuery = {
+      ...query,
+    };
+    const data = await client.getEntries(filterQuery);
     return data;
   } catch (error) {
     handleErrors(error, "Error fetching entries");
