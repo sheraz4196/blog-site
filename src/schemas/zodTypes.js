@@ -32,9 +32,28 @@ export const BlogPostSchema = z.object({
     updatedAt: z.string(),
   }),
   fields: z.object({
-    title: z.string(),
-    slug: z.string(),
-    image: z.any().optional(),
+    title: z.string().optional(),
+    slug: z.string().optional(),
+    image: z.object({
+      metadata: z.object(
+        {
+          tags: z.array(z.object({})).optional(),
+        },
+        { message: "Metadata is Invalid" }
+      ),
+      sys: z
+        .object({
+          id: z.string(),
+          createdAt: z.string(),
+          updatedAt: z.string(),
+          space: z.object({}).optional(),
+        })
+        .optional(),
+      fields: z.object({
+        url: z.string().optional(),
+        details: z.object({}).optional(),
+      }),
+    }),
     tableOfContent: z.any().optional(),
     description: z.any().optional(),
     authors: z.array(AuthorSchema).optional(),

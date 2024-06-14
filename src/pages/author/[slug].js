@@ -6,6 +6,8 @@ import Link from "next/link";
 import Seo from "@/components/common/seo";
 
 export default function Slug({ authorData, blogs }) {
+  const imgUrl = authorData?.image?.fields?.file?.url;
+  console.log("Image url is:", imgUrl, "Ended");
   return (
     <>
       <Seo data={authorData?.seo?.fields} />
@@ -13,10 +15,10 @@ export default function Slug({ authorData, blogs }) {
         <div className="max-container flex items-center justify-center">
           <div className="mx-auto max-w-4xl">
             <section className="py-6 border-b lg:pt-12 border-gray-100 flex flex-col gap-6">
-              {authorData?.image?.fields?.file?.url && (
+              {imgUrl && (
                 <div>
                   <Image
-                    src={"https:" + authorData?.image?.fields?.file?.url}
+                    src={"https:" + imgUrl}
                     alt={authorData?.image?.fields?.title || "author"}
                     width={110}
                     height={110}
