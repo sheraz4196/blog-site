@@ -20,7 +20,7 @@ export default function Richtext({ data, truncate }) {
       [MARKS.BOLD]: (text) => <b className="font-bold">{text}</b>,
       [MARKS.CODE]: (text) => {
         return (
-          <div className="CodeBlockClass">
+          <div className="CodeBlockClass my-6">
             <div className="carbon">
               <div className="red"></div>
               <div className="yellow"></div>
