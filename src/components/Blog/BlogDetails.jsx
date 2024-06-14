@@ -11,7 +11,7 @@ export default function BlogDetails({ data }) {
   return (
     <div className="flex items-center justify-between">
       <div className="max-container flex items-center justify-between">
-        <div className="max-w-max sm:max-w-2xl mx-auto">
+        <div className="max-w-max sm:max-w-5xl px-10 mx-auto">
           <div className="pt-16 pb-5">
             <div className="flex flex-wrap uppercase text-sm font-semibold text-primary">
               {data?.fields?.tags?.map((tag, index) => (

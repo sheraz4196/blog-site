@@ -7,7 +7,6 @@ import { calculateReadingTime } from "../../utils/calculateReadingTime";
 import { Tooltip } from "react-tooltip";
 
 export default function BlogCard({ data, className }) {
-  console.log(data?.fields?.slug);
   return (
     <article className={`flex flex-col items-start ${className}`}>
       <div className="relative w-full">

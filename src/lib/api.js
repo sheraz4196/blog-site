@@ -42,7 +42,6 @@ export const getPagesData = async (contentType, setData) => {
     order: "-sys.createdAt",
   });
   if (data) {
-    console.log("========>", data);
     if (setData) setData(data);
     else return data;
   } else {
@@ -74,8 +73,8 @@ export async function getSlugPagData(contentType, slug) {
     "fields.slug": slug,
   });
   if (post.items) {
-    const validatePost = post.items.map((post) => BlogPostSchema.parse(post));
-    return validatePost;
+    // const validatePost = post.items.map((post) => BlogPostSchema.parse(post));
+    return post.items;
   }
   console.log(`Error getting post for ${contentType.name}.`);
 }

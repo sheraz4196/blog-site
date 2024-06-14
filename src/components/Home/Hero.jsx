@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Hero({ homeData, blogs }) {
   const [search, setSearch] = useState("");
   const [blogsList, setBlogsList] = useState([]);
-  console.log(blogs, "Blogs");
+  
   const handleChange = (e) => {
     let value = e.target.value;
     setSearch(value);
