@@ -14,7 +14,6 @@ import { useTheme } from "next-themes";
 export default function Richtext({ data, truncate }) {
   const { theme } = useTheme();
   const codeStyle = theme === "dark" ? docco : arta;
-  console.log(theme);
   const options = useMemo(() => ({
     renderMark: {
       [MARKS.BOLD]: (text) => <b className="font-bold">{text}</b>,

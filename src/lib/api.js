@@ -5,7 +5,7 @@ const spaceId = process.env.NEXT_PUBLIC_SPACE_ID;
 const accessToken = process.env.NEXT_PUBLIC_ACCESS_TOKEN;
 const client = contentful.createClient({
   space: spaceId,
-  accessToken: accessToken,
+  accessToken: "tetoxR1nWYIdhMwcaFedJZ3f5Caz3PXPT4VSKpWQIVs",
   host: process.env.CONTENTFUL_HOST,
 });
 
@@ -19,9 +19,7 @@ const getEntries = async (query) => {
     };
     const data = await client.getEntries(filterQuery);
     return data;
-  } catch (error) {
-    handleErrors(error, "Error fetching entries");
-  }
+  } catch (error) {}
 };
 
 export const getFilteredBlogs = async (field, id) => {
