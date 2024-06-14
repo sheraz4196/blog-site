@@ -2,69 +2,69 @@ import React from "react";
 import Link from "next/link";
 export default function Footer({ commonData }) {
   return (
-    <footer class="bg-white dark:bg-black border-t dark:border-gray-800">
-      <div class="mx-auto max-w-7xl overflow-hidden p-5">
+    <footer className="bg-white dark:bg-black border-t dark:border-gray-800">
+      <div className="mx-auto max-w-7xl overflow-hidden p-5">
         {/* <nav
-          class="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
+          className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
           aria-label="Footer"
         >
-          <div class="pb-6">
+          <div className="pb-6">
             <Link
               href="/about"
-              class="text-sm leading-6 text-gray-600 dark:text-white dark:hover:text-secondary hover:text-gray-900"
+              className="text-sm leading-6 text-gray-600 dark:text-white dark:hover:text-secondary hover:text-gray-900"
             >
               About
             </Link>
           </div>
-          <div class="pb-6">
+          <div className="pb-6">
             <Link
               href="/blog"
-              class="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-secondary"
+              className="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-secondary"
             >
               Blog
             </Link>
           </div>
-          <div class="pb-6">
+          <div className="pb-6">
             <Link
               href="Jobs"
-              class="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-secondary"
+              className="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-secondary"
             >
               Jobs
             </Link>
           </div>
-          <div class="pb-6">
+          <div className="pb-6">
             <Link
               href="/press"
-              class="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-secondary"
+              className="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-secondary"
             >
               Press
             </Link>
           </div>
-          <div class="pb-6">
+          <div className="pb-6">
             <Link
               href="/accessibility"
-              class="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-secondary"
+              className="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-secondary"
             >
               Accessibility
             </Link>
           </div>
-          <div class="pb-6">
+          <div className="pb-6">
             <Link
               href="/partners"
-              class="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-secondary"
+              className="text-sm leading-6 text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-secondary"
             >
               Partners
             </Link>
           </div>
         </nav>
-        <div class="mt-10 flex justify-center space-x-10">
+        <div className="mt-10 flex justify-center space-x-10">
           <Link
             href="#"
-            class="text-gray-400 hover:text-gray-500 dark:text-white dark:hover:text-secondary"
+            className="text-gray-400 hover:text-gray-500 dark:text-white dark:hover:text-secondary"
           >
-            <span class="sr-only">Facebook</span>
+            <span className="sr-only">Facebook</span>
             <svg
-              class="h-6 w-6"
+              className="h-6 w-6"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -78,11 +78,11 @@ export default function Footer({ commonData }) {
           </Link>
           <Link
             href="#"
-            class="text-gray-400 hover:text-gray-500 dark:text-white dark:hover:text-secondary"
+            className="text-gray-400 hover:text-gray-500 dark:text-white dark:hover:text-secondary"
           >
-            <span class="sr-only">Instagram</span>
+            <span className="sr-only">Instagram</span>
             <svg
-              class="h-6 w-6"
+              className="h-6 w-6"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -96,11 +96,11 @@ export default function Footer({ commonData }) {
           </Link>
           <Link
             href="#"
-            class="text-gray-400 hover:text-gray-500 dark:text-white dark:hover:text-secondary"
+            className="text-gray-400 hover:text-gray-500 dark:text-white dark:hover:text-secondary"
           >
-            <span class="sr-only">X</span>
+            <span className="sr-only">X</span>
             <svg
-              class="h-6 w-6"
+              className="h-6 w-6"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -110,11 +110,11 @@ export default function Footer({ commonData }) {
           </Link>
           <Link
             href="#"
-            class="text-gray-400 hover:text-gray-500 dark:text-white dark:hover:text-secondary"
+            className="text-gray-400 hover:text-gray-500 dark:text-white dark:hover:text-secondary"
           >
-            <span class="sr-only">GitHub</span>
+            <span className="sr-only">GitHub</span>
             <svg
-              class="h-6 w-6"
+              className="h-6 w-6"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -128,11 +128,11 @@ export default function Footer({ commonData }) {
           </Link>
           <Link
             href="#"
-            class="text-gray-400 hover:text-gray-500 dark:text-white dark:hover:text-secondary"
+            className="text-gray-400 hover:text-gray-500 dark:text-white dark:hover:text-secondary"
           >
-            <span class="sr-only">YouTube</span>
+            <span className="sr-only">YouTube</span>
             <svg
-              class="h-6 w-6"
+              className="h-6 w-6"
               fill="currentColor"
               viewBox="0 0 24 24"
               aria-hidden="true"
@@ -145,7 +145,7 @@ export default function Footer({ commonData }) {
             </svg>
           </Link>
         </div> */}
-        <p class="text-center text-xs leading-5 text-gray-500 dark:text-white">
+        <p className="text-center text-xs leading-5 text-gray-500 dark:text-white">
           &copy; 2024 Techandsec, All rights reserved.
         </p>
       </div>

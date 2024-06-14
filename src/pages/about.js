@@ -1,16 +1,16 @@
-import Seo from "@/components/common/seo"
-import { getPagesData } from "@/lib/api"
-import Image from "next/image"
-import React from "react"
+import Seo from "@/components/common/seo";
+import { getPagesData } from "@/lib/api";
+import Image from "next/image";
+import React from "react";
 
 export default function about({ data }) {
   return (
     <>
       <Seo data={data?.seo?.fields} />
-      <div class="relative isolate overflow-hidden bg-white dark:bg-black px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
-        <div class="absolute inset-0 -z-10 overflow-hidden">
+      <div className="relative isolate overflow-hidden bg-white dark:bg-black px-6 py-24 sm:py-32 lg:overflow-visible lg:px-0">
+        <div className="absolute inset-0 -z-10 overflow-hidden">
           <svg
-            class="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 dark:stroke-gray-700 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]"
+            className="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 dark:stroke-gray-700 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]"
             aria-hidden="true"
           >
             <defs>
@@ -28,7 +28,7 @@ export default function about({ data }) {
             <svg
               x="50%"
               y="-1"
-              class="overflow-visible fill-gray-50 dark:fill-gray-900"
+              className="overflow-visible fill-gray-50 dark:fill-gray-900"
             >
               <path
                 d="M-100.5 0h201v201h-201Z M699.5 0h201v201h-201Z M499.5 400h201v201h-201Z M-300.5 600h201v201h-201Z"
@@ -43,18 +43,18 @@ export default function about({ data }) {
             />
           </svg>
         </div>
-        <div class="mx-auto grid grid-cols-1 gap-x-8 gap-y-16 lg:mx-auto lg:max-w-6xl lg:grid-cols-2 lg:items-start lg:gap-y-10">
-          <div class="order-2 sm:order-1 lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-            <div class="lg:pr-4">
-              <div class="lg:max-w-lg">
-                <p class="text-base font-semibold leading-7 text-primary">
+        <div className="mx-auto grid grid-cols-1 gap-x-8 gap-y-16 lg:mx-auto lg:max-w-6xl lg:grid-cols-2 lg:items-start lg:gap-y-10">
+          <div className="order-2 sm:order-1 lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div className="lg:pr-4">
+              <div className="lg:max-w-lg">
+                <p className="text-base font-semibold leading-7 text-primary">
                   Welcome to
                 </p>
-                <h1 class="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+                <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
                   Tech & Sec — where technology meets security, and chaos meets
                   order!
                 </h1>
-                <p class="mt-6 text-base leading-7 text-gray-700 dark:text-white lg:max-w-lg">
+                <p className="mt-6 text-base leading-7 text-gray-700 dark:text-white lg:max-w-lg">
                   Are you fascinated by the digital world but find yourself
                   bewildered by its complexities? Fear not! Tech & Sec is your
                   trusty guide through the labyrinth of modern technology and
@@ -65,7 +65,7 @@ export default function about({ data }) {
               </div>
             </div>
           </div>
-          <div class="order-1 sm:order-2 sm:-ml-12 mt-12 sm:p-12 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+          <div className="order-1 sm:order-2 sm:-ml-12 mt-12 sm:p-12 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
             <Image
               src={
                 "https://images.ctfassets.net/og4jsxsu76rm/35gpuzr5Ki5FqLnuKqorfL/1c110bff2538bd696d710bc1f46b2e5c/giphy.gif"
@@ -76,9 +76,9 @@ export default function about({ data }) {
               className="w-full sm:w-[38rem] md:max-w-lg max-w-none bg-gray-900 shadow-xl ring-1 ring-gray-400/10"
             />
           </div>
-          <div class="order-3 sm:order-3 lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-            <div class="lg:pr-4">
-              <div class="max-w-xl text-base leading-7 text-gray-700 dark:text-white lg:max-w-lg">
+          <div className="order-3 sm:order-3 lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
+            <div className="lg:pr-4">
+              <div className="max-w-xl text-base leading-7 text-gray-700 dark:text-white lg:max-w-lg">
                 <p>
                   Here at Tech & Sec, we believe everyone should get a kick out
                   of conquering Hack The Box challenges or untangling the wires
@@ -87,11 +87,11 @@ export default function about({ data }) {
                   your router keeps blinking at you menacingly, we’ve got your
                   back. Dive into a variety of topics including:
                 </p>
-                <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 dark:text-white lg:max-w-none">
-                  <div class="relative pl-9">
-                    <dt class="inline font-semibold text-gray-900 dark:text-primary">
+                <dl className="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 dark:text-white lg:max-w-none">
+                  <div className="relative pl-9">
+                    <dt className="inline font-semibold text-gray-900 dark:text-primary">
                       <svg
-                        class="absolute left-1 top-1 h-5 w-5 text-primary"
+                        className="absolute left-1 top-1 h-5 w-5 text-primary"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                         aria-hidden="true"
@@ -104,15 +104,15 @@ export default function about({ data }) {
                       </svg>
                       Cyber Security Shenanigans:
                     </dt>
-                    <dd class="inline pl-2">
+                    <dd className="inline pl-2">
                       Uncover the secrets to keeping the digital gremlins at
                       bay.
                     </dd>
                   </div>
-                  <div class="relative pl-9">
-                    <dt class="inline font-semibold text-gray-900 dark:text-primary">
+                  <div className="relative pl-9">
+                    <dt className="inline font-semibold text-gray-900 dark:text-primary">
                       <svg
-                        class="absolute left-1 top-1 h-5 w-5 text-primary"
+                        className="absolute left-1 top-1 h-5 w-5 text-primary"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                         aria-hidden="true"
@@ -126,15 +126,15 @@ export default function about({ data }) {
                       </svg>
                       Techie How-tos:
                     </dt>
-                    <dd class="inline pl-2">
+                    <dd className="inline pl-2">
                       Follow our step-by-step guides that even the
                       technologically impaired can follow.
                     </dd>
                   </div>
-                  <div class="relative pl-9">
-                    <dt class="inline font-semibold text-gray-900 dark:text-primary">
+                  <div className="relative pl-9">
+                    <dt className="inline font-semibold text-gray-900 dark:text-primary">
                       <svg
-                        class="absolute left-1 top-1 h-5 w-5 text-primary"
+                        className="absolute left-1 top-1 h-5 w-5 text-primary"
                         viewBox="0 0 20 20"
                         fill="currentColor"
                         aria-hidden="true"
@@ -147,13 +147,13 @@ export default function about({ data }) {
                       </svg>
                       Future Stuff:
                     </dt>
-                    <dd class="inline pl-2 dark:text-white">
+                    <dd className="inline pl-2 dark:text-white">
                       Get a sneak peek at technologies that promise to make
                       everything better (or just more complicated).
                     </dd>
                   </div>
                 </dl>
-                <p class="mt-8 dark:text-white">
+                <p className="mt-8 dark:text-white">
                   Join us on this whimsical journey to master the art of turning
                   tech terror into tech triumph. At Tech & Sec, we’re serious
                   about security, passionate about technology, and occasionally
@@ -165,19 +165,19 @@ export default function about({ data }) {
         </div>
       </div>
     </>
-  )
+  );
 }
 export async function getServerSideProps({}) {
-  const data = await getPagesData("about")
+  const data = await getPagesData("about");
   if (!data?.items[0]?.fields) {
     return {
       redirect: {
         destination: `/500?url=/`,
         permanent: true,
       },
-    }
+    };
   }
   return {
     props: { data: data?.items[0]?.fields || null },
-  }
+  };
 }

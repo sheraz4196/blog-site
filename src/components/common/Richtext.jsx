@@ -21,10 +21,10 @@ export default function Richtext({ data, truncate }) {
       [MARKS.CODE]: (text) => {
         return (
           <div className="CodeBlockClass">
-            <div class="carbon">
-              <div class="red"></div>
-              <div class="yellow"></div>
-              <div class="green"></div>
+            <div className="carbon">
+              <div className="red"></div>
+              <div className="yellow"></div>
+              <div className="green"></div>
             </div>
             <CopyButton code={text?.props?.children || text || ""} />
             <SyntaxHighlighter
