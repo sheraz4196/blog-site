@@ -11,7 +11,7 @@ export default function BlogDetails({ data }) {
   return (
     <div className="flex items-center justify-between">
       <div className="max-container flex items-center justify-between">
-        <div className="max-w-max sm:max-w-5xl px-10 mx-auto">
+        <div className="w-screen overflow-x-hidden sm:max-w-5xl px-10 mx-auto">
           <div className="pt-16 pb-5">
             <div className="flex flex-wrap uppercase text-sm font-semibold text-primary">
               {data?.fields?.tags?.map((tag, index) => (
@@ -129,7 +129,7 @@ export default function BlogDetails({ data }) {
           </div>
           <div>
             {data?.fields?.image?.fields?.file?.url && (
-              <div className="blog-details-image-wrap">
+              <div className="blog-details-image-wrap bg-red-900">
                 <Image
                   src={"https:" + data?.fields?.image?.fields?.file?.url}
                   alt={data?.fields?.image?.fields?.title || "blog-image"}
