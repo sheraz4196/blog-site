@@ -7,7 +7,6 @@ import Seo from "@/components/common/seo";
 
 export default function Slug({ authorData, blogs }) {
   const imgUrl = authorData?.image?.fields?.file?.url;
-  console.log("Image url is:", imgUrl, "Ended");
   return (
     <>
       <Seo data={authorData?.seo?.fields} />
@@ -18,7 +17,7 @@ export default function Slug({ authorData, blogs }) {
               {imgUrl && (
                 <div>
                   <Image
-                    src={"https:" + imgUrl}
+                    src={`https:${imgUrl}`}
                     alt={authorData?.image?.fields?.title || "author"}
                     width={110}
                     height={110}
