@@ -416,3 +416,6 @@ table th span {
 #Embed iframe {
   @apply max-w-full;
 }
+.table-of-content .rich-text div br {
+  display: none;
+}

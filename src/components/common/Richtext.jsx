@@ -152,9 +152,11 @@ export default function Richtext({ data, truncate }) {
                   href={
                     data?.uri && data?.uri.startsWith("https://")
                       ? data?.uri
-                      : `https://${data?.uri}`
+                      : `${data?.uri}`
                   }
-                  target="_blank"
+                  target={
+                    data?.uri && data?.uri.startsWith("https://") && "_blank"
+                  }
                   className="max-w-full break-words hover:underline text-secondary"
                 >
                   {children}
