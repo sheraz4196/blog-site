@@ -25,7 +25,7 @@ class MyDocument extends Document {
           />
           {favicon && <link rel="icon" href={favicon} />}
         </Head>
-        <body>
+        <body className="dark:bg-black">
           <Main />
           <NextScript />
         </body>
