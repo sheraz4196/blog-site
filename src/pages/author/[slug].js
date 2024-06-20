@@ -1,4 +1,3 @@
-import BlogCard from "@/components/Blog/BlogCard";
 import { getFilteredBlogsByAuthorData, getSlugPagData } from "@/lib/api";
 import React from "react";
 import Image from "next/image";
