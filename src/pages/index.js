@@ -4,12 +4,11 @@ const Hero = dynamic(() => import("@/components/Home/Hero"));
 import Pagination from "@/components/common/Pagination";
 import Seo from "@/components/common/seo";
 import { getPagesData, getPagesDataWithPagination } from "@/lib/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 const safeJsonStringify = require("safe-json-stringify");
 
 export default function Home({ blogsData, homeData }) {
   const [blogs, setBlogs] = useState(blogsData?.items || []);
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const blogsPerPage = 6;
 
@@ -25,16 +24,12 @@ export default function Home({ blogsData, homeData }) {
       <section className="pb-5 dark:bg-black">
         {homeData && <Hero homeData={homeData} blogs={blogs} />}
         <BlogsList blogs={currentBlogs} currentPage={currentPage} />
-        {loading ? (
-          <p className="text-7xl">Loading</p>
-        ) : (
-          <div className="max-container">
-            <Pagination
-              totalPages={Math.ceil(blogs.length / blogsPerPage)}
-              setCurrentPage={setCurrentPage}
-            />
-          </div>
-        )}
+        <div className="max-container">
+          <Pagination
+            totalPages={Math.ceil(blogs.length / blogsPerPage)}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       </section>
     </>
   );
