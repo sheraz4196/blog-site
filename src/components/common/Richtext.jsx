@@ -62,7 +62,7 @@ export default function Richtext({ data, truncate }) {
       [BLOCKS.EMBEDDED_ENTRY]: (node) => {
         const { position, image } = node.data.target.fields;
         return (
-          <div className="">
+          <div>
             <Image
               src={"https:" + image?.fields?.file?.url}
               alt={image?.fields?.title || "image"}
@@ -246,7 +246,7 @@ export default function Richtext({ data, truncate }) {
       [BLOCKS.HEADING_1]: (node, children) => {
         const headingId = getHeadingString(children[0]);
         return (
-          <h2 id={headingId} className="mb-r mt-20">
+          <h2 id={headingId} className="mb-r mt-20 text-3xl">
             {children}
           </h2>
         );
@@ -254,7 +254,7 @@ export default function Richtext({ data, truncate }) {
       [BLOCKS.HEADING_2]: (node, children) => {
         const headingId = getHeadingString(children[0]);
         return (
-          <h2 id={headingId} className="mb-6">
+          <h2 id={headingId} className="mb-6 text-2xl">
             {children}
           </h2>
         );
@@ -262,7 +262,7 @@ export default function Richtext({ data, truncate }) {
       [BLOCKS.HEADING_3]: (node, children) => {
         const headingId = getHeadingString(children[0]);
         return (
-          <h3 id={headingId} className="mb-5">
+          <h3 id={headingId} className="mb-5 text-xl">
             {children}
           </h3>
         );
@@ -270,7 +270,7 @@ export default function Richtext({ data, truncate }) {
       [BLOCKS.HEADING_4]: (node, children) => {
         const headingId = getHeadingString(children[0]);
         return (
-          <h4 id={headingId} className="mb-4">
+          <h4 id={headingId} className="mb-4 text-lg">
             {children}
           </h4>
         );
@@ -278,7 +278,7 @@ export default function Richtext({ data, truncate }) {
       [BLOCKS.HEADING_5]: (node, children) => {
         const headingId = getHeadingString(children[0]);
         return (
-          <h5 id={headingId} className="mb-3">
+          <h5 id={headingId} className="mb-3 text-base">
             {children}
           </h5>
         );
@@ -286,7 +286,7 @@ export default function Richtext({ data, truncate }) {
       [BLOCKS.HEADING_6]: (node, children) => {
         const headingId = getHeadingString(children[0]);
         return (
-          <h6 id={headingId} className="mb-2">
+          <h6 id={headingId} className="mb-2 text-sm">
             {children}
           </h6>
         );
