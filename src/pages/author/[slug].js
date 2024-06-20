@@ -7,7 +7,7 @@ import BlogsList from "@/components/Home/BlogsList";
 
 export default function Slug({ authorData, blogs }) {
   const imgUrl = authorData?.image?.fields?.file?.url;
-  console.log(blogs, "authors blogs are here");
+  console.log(blogs[0].fields.image.fields.url, "authors blogs are here");
   return (
     <>
       <Seo data={authorData?.seo?.fields} />
