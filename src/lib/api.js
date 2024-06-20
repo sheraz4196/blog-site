@@ -67,7 +67,7 @@ export const getPagesDataWithPagination = async (
   }
 };
 
-export async function getSlugPagData(contentType, slug) {
+export async function getSlugPageData(contentType, slug) {
   const post = await getEntries({
     content_type: contentType,
     "fields.slug": slug,

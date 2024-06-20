@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { AppContext } from "@/context/AppContextProvider";
 import BlogDetails from "@/components/Blog/BlogDetails";
-import { getSimilarBlogs, getSlugPagData } from "@/lib/api";
+import { getSimilarBlogs, getSlugPageData } from "@/lib/api";
 import SimilarBlogs from "@/components/Blog/SimilarBlogs";
 import Seo from "@/components/common/seo";
 const safeJsonStringify = require("safe-json-stringify");
@@ -63,7 +63,7 @@ export default function BlogDetailsPage({ slug, blogData, similarBlogData }) {
 export async function getServerSideProps({ params }) {
   const slug = params["blog-details"];
   const [blogData, similarBlogData] = await Promise.all([
-    getSlugPagData("blogPost", slug),
+    getSlugPageData("blogPost", slug),
     getSimilarBlogs(slug),
   ]);
 

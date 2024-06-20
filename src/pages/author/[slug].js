@@ -1,13 +1,13 @@
-import { getFilteredBlogsByAuthorData, getSlugPagData } from "@/lib/api";
+import { getFilteredBlogsByAuthorData, getSlugPageData } from "@/lib/api";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Seo from "@/components/common/seo";
 import BlogsList from "@/components/Home/BlogsList";
-
+const safeJsonStringify = require("safe-json-stringify");
 export default function Slug({ authorData, blogs }) {
   const imgUrl = authorData?.image?.fields?.file?.url;
-  console.log(blogs[0].fields.image.fields.url, "authors blogs are here");
+  console.log(blogs, "authors blogs are here");
   return (
     <>
       <Seo data={authorData?.seo?.fields} />
@@ -67,7 +67,8 @@ export default function Slug({ authorData, blogs }) {
 }
 export async function getServerSideProps({ params }) {
   const slug = params["slug"];
-  const authorData = await getSlugPagData("author", slug);
+  const authorData = await getSlugPageData("author", slug);
+
   if (!authorData[0]?.fields) {
     return {
       redirect: {
@@ -76,11 +77,13 @@ export async function getServerSideProps({ params }) {
       },
     };
   }
+
   const blogs = await getFilteredBlogsByAuthorData(authorData[0]?.sys?.id);
+
   return {
     props: {
-      authorData: authorData[0]?.fields || null,
-      blogs: blogs || null,
+      authorData: JSON.parse(safeJsonStringify(authorData[0]?.fields)) || null,
+      blogs: JSON.parse(safeJsonStringify(blogs)) || null,
     },
   };
 }

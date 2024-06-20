@@ -1,6 +1,6 @@
 import BlogCard from "@/components/Blog/BlogCard";
 import Seo from "@/components/common/seo";
-import { getFilteredBlogsByTagData, getSlugPagData } from "@/lib/api";
+import { getFilteredBlogsByTagData, getSlugPageData } from "@/lib/api";
 import React from "react";
 
 export default function Slug({ tagData, blogs }) {
@@ -28,7 +28,7 @@ export default function Slug({ tagData, blogs }) {
 }
 export async function getServerSideProps({ params }) {
   const slug = params["slug"];
-  const tagData = await getSlugPagData("tag", slug);
+  const tagData = await getSlugPageData("tag", slug);
   if (!tagData[0]?.fields) {
     return {
       redirect: {
