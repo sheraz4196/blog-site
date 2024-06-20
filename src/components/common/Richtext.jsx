@@ -19,9 +19,8 @@ export default function Richtext({ data, truncate }) {
       renderMark: {
         [MARKS.BOLD]: (text) => <b className="font-bold">{text}</b>,
         [MARKS.CODE]: (text) => {
-          const finalBlock =
-            text?.props?.children?.replace(/<br>/g, "\n") ||
-            text.replace(/<br>/g, "\n");
+          const inputText = text?.props?.children || text;
+          const finalBlock = inputText.replace("", "\n");
 
           return (
             <div className="CodeBlockClass my-6">
@@ -39,7 +38,7 @@ export default function Richtext({ data, truncate }) {
                 showLineNumbers={true}
                 showInlineLineNumbers={false}
               >
-                {text?.props?.children || text || ""}
+                {finalBlock || ""}
               </SyntaxHighlighter>
             </div>
           );
