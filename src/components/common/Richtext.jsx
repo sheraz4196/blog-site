@@ -112,7 +112,7 @@ export default function Richtext({ data, truncate }) {
               </audio>
             );
           default:
-            return <p>Unsupported file type</p>;
+            return <div>Unsupported file type</div>;
         }
       },
 
