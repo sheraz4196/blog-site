@@ -11,23 +11,12 @@ export default function Home({ blogsData, homeData }) {
   const [blogs, setBlogs] = useState(blogsData?.items || []);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  useEffect(() => {
-    if (currentPage === 1 && blogsData?.items) {
-      return; // Initial load already has the data
-    }
-    async function fetchData() {
-      try {
-        setLoading(true);
-        const data = await getPagesDataWithPagination("blogPost", currentPage);
-        setBlogs(data?.items || []);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchData();
-  }, []);
+  const blogsPerPage = 6;
+
+  const currentBlogs = blogs.slice(
+    (currentPage - 1) * blogsPerPage,
+    currentPage * blogsPerPage
+  );
 
   return (
     <>
@@ -35,13 +24,13 @@ export default function Home({ blogsData, homeData }) {
 
       <section className="pb-5 dark:bg-black">
         {homeData && <Hero homeData={homeData} blogs={blogs} />}
-        <BlogsList blogs={blogs} currentPage={currentPage} />
+        <BlogsList blogs={currentBlogs} currentPage={currentPage} />
         {loading ? (
           <p className="text-7xl">Loading</p>
         ) : (
           <div className="max-container">
             <Pagination
-              totalPages={Math.ceil(blogsData?.total / 4)}
+              totalPages={Math.ceil(blogs.length / blogsPerPage)}
               setCurrentPage={setCurrentPage}
             />
           </div>

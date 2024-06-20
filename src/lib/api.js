@@ -57,7 +57,6 @@ export const getPagesDataWithPagination = async (
     content_type: contentType,
     order: "-sys.createdAt",
     skip: (page - 1) * 4, //Correct logic for pagination
-    limit: 4,
   });
   if (data) {
     if (setData) setData(data);
