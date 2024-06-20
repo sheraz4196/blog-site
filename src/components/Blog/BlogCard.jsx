@@ -44,10 +44,10 @@ export default function BlogCard({ data, className }) {
               {data?.fields?.title}
             </h3>
           </Link>
-          {data?.fields?.description && (
+          {data?.fields?.description && data.fields.description !== "" && (
             <Link
               href={`/${data?.fields?.slug}`}
-              className="hover:text-current"
+              className="hover:text-current max-h-10 overflow-hidden"
             >
               <div className="line-clamp-2 text-sm leading-5 text-gray-600 dark:text-gray-300 cursor-pointer">
                 <Richtext data={data?.fields?.description} truncate />

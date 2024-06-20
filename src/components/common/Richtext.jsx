@@ -235,6 +235,8 @@ export default function Richtext({ data, truncate }) {
               part === "<br />"
             ) {
               return <br key={index} />;
+            } else if (part === "") {
+              return <p className="h-1"></p>;
             } else {
               // If not enclosed in <c> tags, render the text as-is
               return <span key={index}>{part}</span>;
