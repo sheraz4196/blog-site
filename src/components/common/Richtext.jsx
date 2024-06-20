@@ -60,23 +60,28 @@ export default function Richtext({ data, truncate }) {
         );
       },
       [BLOCKS.EMBEDDED_ENTRY]: (node) => {
-        const { position, image } = node.data.target.fields;
         return (
-          <div>
-            <Image
-              src={"https:" + image?.fields?.file?.url}
-              alt={image?.fields?.title || "image"}
-              width={500}
-              height={500}
-              className={`w-full max-w-lg object-cover ${
-                position === "right"
-                  ? "ml-auto"
-                  : position === "center"
-                  ? "mx-auto"
-                  : ""
-              }`}
-            />
-          </div>
+          <>
+            {node.data.target.fields?.image?.fields?.file?.url && (
+              <div>
+                <Image
+                  src={
+                    "https:" + node.data.target.fields?.image?.fields?.file?.url
+                  }
+                  alt={node.data.target.fields?.image?.fields?.title || "image"}
+                  width={500}
+                  height={500}
+                  className={`w-full max-w-lg object-cover ${
+                    node.data.target.fields?.position === "right"
+                      ? "ml-auto"
+                      : node.data.target.fields?.position === "center"
+                      ? "mx-auto"
+                      : ""
+                  }`}
+                />
+              </div>
+            )}
+          </>
         );
       },
       [BLOCKS.EMBEDDED_ASSET]: (node) => {

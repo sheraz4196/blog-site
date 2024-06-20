@@ -5,6 +5,7 @@ import Pagination from "@/components/common/Pagination";
 import Seo from "@/components/common/seo";
 import { getPagesData, getPagesDataWithPagination } from "@/lib/api";
 import { useEffect, useState } from "react";
+const safeJsonStringify = require("safe-json-stringify");
 
 export default function Home({ blogsData, homeData }) {
   const [blogs, setBlogs] = useState(blogsData?.items || []);
@@ -49,8 +50,9 @@ export default function Home({ blogsData, homeData }) {
     </>
   );
 }
+
 export async function getServerSideProps({}) {
-  // All request at same time
+  // All requests at the same time
   const [blogsData, homeData] = await Promise.all([
     getPagesDataWithPagination("blogPost", 1),
     getPagesData("home"),
@@ -64,10 +66,15 @@ export async function getServerSideProps({}) {
       },
     };
   }
+
+  // Safely stringify the data
+  const blogsDataString = safeJsonStringify(blogsData);
+  const homeDataString = safeJsonStringify(homeData?.items[0]?.fields);
+
   return {
     props: {
-      blogsData: blogsData || null,
-      homeData: homeData?.items[0]?.fields || null,
+      blogsData: JSON.parse(blogsDataString) || null,
+      homeData: JSON.parse(homeDataString) || null,
     },
   };
 }

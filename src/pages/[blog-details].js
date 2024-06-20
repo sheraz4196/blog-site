@@ -4,7 +4,7 @@ import BlogDetails from "@/components/Blog/BlogDetails";
 import { getSimilarBlogs, getSlugPagData } from "@/lib/api";
 import SimilarBlogs from "@/components/Blog/SimilarBlogs";
 import Seo from "@/components/common/seo";
-
+const safeJsonStringify = require("safe-json-stringify");
 export default function BlogDetailsPage({ slug, blogData, similarBlogData }) {
   const { setCurrentBlog } = useContext(AppContext);
 
@@ -41,11 +41,15 @@ export async function getServerSideProps({ params }) {
     };
   }
 
+  // Safely stringify the data
+  const blogDataString = safeJsonStringify(blogData[0]);
+  const similarBlogDataString = safeJsonStringify(similarBlogData?.items);
+
   return {
     props: {
       slug: slug || null,
-      blogData: blogData[0] || null,
-      similarBlogData: similarBlogData?.items || [],
+      blogData: JSON.parse(blogDataString) || null,
+      similarBlogData: JSON.parse(similarBlogDataString) || [],
     },
   };
 }
