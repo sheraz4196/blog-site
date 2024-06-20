@@ -2,6 +2,7 @@ import BlogCard from "@/components/Blog/BlogCard";
 import Seo from "@/components/common/seo";
 import { getFilteredBlogsByTagData, getSlugPageData } from "@/lib/api";
 import React from "react";
+import safeJsonStringify from "safe-json-stringify";
 
 export default function Slug({ tagData, blogs }) {
   return (
@@ -26,6 +27,7 @@ export default function Slug({ tagData, blogs }) {
     </>
   );
 }
+
 export async function getServerSideProps({ params }) {
   const slug = params["slug"];
   const tagData = await getSlugPageData("tag", slug);
@@ -38,10 +40,11 @@ export async function getServerSideProps({ params }) {
     };
   }
   const blogs = await getFilteredBlogsByTagData(tagData[0]?.sys?.id);
+
   return {
     props: {
-      tagData: tagData[0]?.fields || null,
-      blogs: blogs || null,
+      tagData: JSON.parse(safeJsonStringify(tagData[0]?.fields || null)),
+      blogs: JSON.parse(safeJsonStringify(blogs || null)),
     },
   };
 }
