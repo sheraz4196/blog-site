@@ -19,8 +19,7 @@ export default function Richtext({ data, truncate }) {
       renderMark: {
         [MARKS.BOLD]: (text) => <b className="font-bold">{text}</b>,
         [MARKS.CODE]: (text) => {
-          const inputText = text?.props?.children || text;
-          const finalBlock = inputText.replace("", "\n");
+          const finalBlock = text?.props?.children || text;
 
           return (
             <div className="CodeBlockClass my-6">
