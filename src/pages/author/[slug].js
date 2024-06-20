@@ -4,9 +4,11 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Seo from "@/components/common/seo";
+import BlogsList from "@/components/Home/BlogsList";
 
 export default function Slug({ authorData, blogs }) {
   const imgUrl = authorData?.image?.fields?.file?.url;
+  console.log(blogs, "authors blogs are here");
   return (
     <>
       <Seo data={authorData?.seo?.fields} />
@@ -55,10 +57,8 @@ export default function Slug({ authorData, blogs }) {
                 </div>
               </div>
             </section>
-            <section className="pt-10 pb-5 flex flex-wrap lg:-mx-5">
-              {blogs?.map((blog, index) => (
-                <BlogCard data={blog} key={index} />
-              ))}
+            <section className="pt-10 pb-5 lg:-mx-5">
+              <BlogsList blogs={blogs} />
             </section>
           </div>
         </div>
