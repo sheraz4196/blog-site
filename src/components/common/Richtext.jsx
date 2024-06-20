@@ -227,6 +227,7 @@ export default function Richtext({ data, truncate }) {
 
           const styledChildren = paragraphContent.map((part, index) => {
             if (typeof part === "string") {
+              console.log(part);
               if (part.startsWith("<c>") && part.endsWith("</c>")) {
                 const text = part.substring(3, part.length - 4);
                 return (
@@ -246,7 +247,11 @@ export default function Richtext({ data, truncate }) {
               } else if (part === "") {
                 return <br key={index} />;
               } else {
-                return <span key={index}>{part}</span>;
+                return (
+                  <span className="break-words whitespace-pre-wrap" key={index}>
+                    {part}
+                  </span>
+                );
               }
             } else {
               return part;
