@@ -139,7 +139,7 @@ export default function BlogDetails({ data }) {
             </div>
           )}
           {data?.fields?.description && (
-            <div className={` pb-12 min-h-64 font-georgia text-xl`}>
+            <div className={`min-h-64 font-georgia text-xl`}>
               <Richtext data={data?.fields?.description} />
             </div>
           )}
