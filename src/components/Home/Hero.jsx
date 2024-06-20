@@ -23,7 +23,7 @@ export default function Hero({ homeData, blogs }) {
 
   return (
     <section className="pb-3 text-white pt-16 relative home-hero-section">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
+      <div className="absolute inset-0  overflow-hidden">
         <svg
           className="absolute left-[max(50%,25rem)] top-0 h-[64rem] w-[128rem] -translate-x-1/2 stroke-gray-200 dark:stroke-gray-700 [mask-image:radial-gradient(64rem_64rem_at_top,white,transparent)]"
           aria-hidden="true"

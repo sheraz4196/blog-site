@@ -33,7 +33,7 @@ export default function Home({ blogsData, homeData }) {
     <>
       <Seo data={homeData?.seo.fields} />
 
-      <section className="pb-5">
+      <section className="pb-5 dark:bg-black">
         {homeData && <Hero homeData={homeData} blogs={blogs} />}
         <BlogsList blogs={blogs} currentPage={currentPage} />
         {loading ? (
