@@ -14,292 +14,299 @@ import { useTheme } from "next-themes";
 export default function Richtext({ data, truncate }) {
   const { theme } = useTheme();
   const codeStyle = theme === "dark" ? docco : arta;
-  const options = useMemo(() => ({
-    renderMark: {
-      [MARKS.BOLD]: (text) => <b className="font-bold">{text}</b>,
-      [MARKS.CODE]: (text) => {
-        return (
-          <div className="CodeBlockClass my-6">
-            <div className="carbon">
-              <div className="red"></div>
-              <div className="yellow"></div>
-              <div className="green"></div>
-            </div>
-            <CopyButton code={text?.props?.children || text || ""} />
-            <SyntaxHighlighter
-              wrapLines={true}
-              style={codeStyle}
-              language={"javascript"}
-              wrapLongLines={true}
-              showLineNumbers={true}
-              showInlineLineNumbers={false}
-            >
-              {text?.props?.children || text || ""}
-            </SyntaxHighlighter>
-          </div>
-        );
-      },
-    },
-    renderNode: {
-      [INLINES.EMBEDDED_ENTRY]: (node) => {
-        const { position, image } = node.data.target.fields;
-        return (
-          <Image
-            src={"https:" + image?.fields?.file?.url}
-            alt={image?.fields?.title || "image"}
-            width={500}
-            height={500}
-            className={`w-full max-w-lg object-cover ${
-              position === "right"
-                ? "ml-auto"
-                : position === "center"
-                ? "mx-auto"
-                : ""
-            }`}
-          />
-        );
-      },
-      [BLOCKS.EMBEDDED_ENTRY]: (node) => {
-        return (
-          <>
-            {node.data.target.fields?.image?.fields?.file?.url && (
-              <div>
-                <Image
-                  src={
-                    "https:" + node.data.target.fields?.image?.fields?.file?.url
-                  }
-                  alt={node.data.target.fields?.image?.fields?.title || "image"}
-                  width={500}
-                  height={500}
-                  className={`w-full max-w-lg object-cover ${
-                    node.data.target.fields?.position === "right"
-                      ? "ml-auto"
-                      : node.data.target.fields?.position === "center"
-                      ? "mx-auto"
-                      : ""
-                  }`}
-                />
-              </div>
-            )}
-          </>
-        );
-      },
-      [BLOCKS.EMBEDDED_ASSET]: (node) => {
-        const { file, title } = node?.data?.target?.fields;
-        const fileType = file.contentType.split("/")[0];
-        switch (fileType) {
-          case "video":
-            return (
-              <video controls className="my- 10">
-                <source src={`https://${file?.url}`} type={file.contentType} />
-                Your browser does not support the video tag.
-              </video>
-            );
-          case "image":
-            return (
-              <img
-                src={`https://${file?.url}`}
-                alt={title}
-                className="my-5"
-                loading="lazy"
-              />
-            );
-          case "audio":
-            return (
-              <audio controls className="my-10">
-                <source src={`https://${file?.url}`} type={file.contentType} />
-                Your browser does not support the audio tag.
-              </audio>
-            );
-          default:
-            return <div>Unsupported file type</div>;
-        }
-      },
+  const options = useMemo(
+    () => ({
+      renderMark: {
+        [MARKS.BOLD]: (text) => <b className="font-bold">{text}</b>,
+        [MARKS.CODE]: (text) => {
+          const finalBlock =
+            text?.props?.children?.replace(/<br>/g, "\n") ||
+            text.replace(/<br>/g, "\n");
 
-      [INLINES.HYPERLINK]: ({ data }, children) => {
-        let videoId;
-        if (data?.uri.includes("youtube"))
-          videoId = getYoutubeVideoId(data?.uri);
-        if (videoId) {
           return (
-            <iframe
-              width="560"
-              height="315"
-              src={`https://www.youtube.com/embed/${videoId}`}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              title="Embedded YouTube video"
-              loading="lazy"
-              className="w-full max-w-3xl mx-auto h-60 md:h-custom-450 my-10"
+            <div className="CodeBlockClass my-6">
+              <div className="carbon">
+                <div className="red"></div>
+                <div className="yellow"></div>
+                <div className="green"></div>
+              </div>
+              <CopyButton code={finalBlock || ""} />
+              <SyntaxHighlighter
+                wrapLines={true}
+                style={codeStyle}
+                language={"javascript"}
+                wrapLongLines={true}
+                showLineNumbers={true}
+                showInlineLineNumbers={false}
+              >
+                {text?.props?.children || text || ""}
+              </SyntaxHighlighter>
+            </div>
+          );
+        },
+      },
+      renderNode: {
+        [INLINES.EMBEDDED_ENTRY]: (node) => {
+          const { position, image } = node.data.target.fields;
+          return (
+            <Image
+              src={"https:" + image?.fields?.file?.url}
+              alt={image?.fields?.title || "image"}
+              width={500}
+              height={500}
+              className={`w-full max-w-lg object-cover ${
+                position === "right"
+                  ? "ml-auto"
+                  : position === "center"
+                  ? "mx-auto"
+                  : ""
+              }`}
             />
           );
-        } else {
+        },
+        [BLOCKS.EMBEDDED_ENTRY]: (node) => {
           return (
             <>
-              <Link
-                href={
-                  data?.uri && data?.uri.startsWith("https://")
-                    ? data?.uri
-                    : `https://${data?.uri}`
-                }
-                target="_blank"
-                className="max-w-full break-words hover:underline text-secondary"
-              >
-                {children}
-              </Link>
+              {node.data.target.fields?.image?.fields?.file?.url && (
+                <div>
+                  <Image
+                    src={
+                      "https:" +
+                      node.data.target.fields?.image?.fields?.file?.url
+                    }
+                    alt={
+                      node.data.target.fields?.image?.fields?.title || "image"
+                    }
+                    width={500}
+                    height={500}
+                    className={`w-full max-w-lg object-cover ${
+                      node.data.target.fields?.position === "right"
+                        ? "ml-auto"
+                        : node.data.target.fields?.position === "center"
+                        ? "mx-auto"
+                        : ""
+                    }`}
+                  />
+                </div>
+              )}
             </>
           );
-        }
-      },
-      [BLOCKS.QUOTE]: (node, children) => {
-        return (
-          <blockquote className="p-4 my-4 border-s-4 border-gray-300 bg-gray-50 dark:border-gray-500 dark:bg-gray-800">
-            <div className="text-xl italic font-medium leading-relaxed text-gray-900 dark:text-white">
-              {children}
-            </div>
-          </blockquote>
-        );
-      },
-      [BLOCKS.TABLE]: (node, children) => {
-        return (
-          <div className="max-w-full overflow-x-auto hide-scrollbar">
-            <table className="my-7 w-full">{children}</table>
-          </div>
-        );
-      },
-      [BLOCKS.TABLE_HEADER_CELL]: (node, children) => {
-        return (
-          <th className="text-center border border-gray-700/50 text-gray-700 dark:border-zinc-400 px-3 py-1.5 uppercase bg-gray-200 dark:text-black dark:bg-zinc-100 font-bold font-apple_system text-xs tracking-wide leading-8">
-            {children}
-          </th>
-        );
-      },
-      [BLOCKS.TABLE_CELL]: (node, children) => {
-        return (
-          <td className="text-center border border-gray-700/50 text-black dark:text-zinc-950 dark:border-zinc-400 px-3 py-1.5 font-apple_system text-base leading-8 bg-white dark:bg-white">
-            {children}
-          </td>
-        );
-      },
-      [BLOCKS.PARAGRAPH]: (node, children) => {
-        const containsIframe = /<iframe.*<\/iframe>/i.test(children[0]);
-        if (containsIframe && typeof document !== "undefined") {
-          const iframeHTML = children[0];
-          const embedElement = document.querySelector("#Embed");
-          if (embedElement) {
-            embedElement.innerHTML = iframeHTML;
-            embedElement.classList.add("max-w-full");
+        },
+        [BLOCKS.EMBEDDED_ASSET]: (node) => {
+          const { file, title } = node?.data?.target?.fields;
+          const fileType = file.contentType.split("/")[0];
+          switch (fileType) {
+            case "video":
+              return (
+                <video controls className="my- 10">
+                  <source
+                    src={`https://${file?.url}`}
+                    type={file.contentType}
+                  />
+                  Your browser does not support the video tag.
+                </video>
+              );
+            case "image":
+              return (
+                <img
+                  src={`https://${file?.url}`}
+                  alt={title}
+                  className="my-5"
+                  loading="lazy"
+                />
+              );
+            case "audio":
+              return (
+                <audio controls className="my-10">
+                  <source
+                    src={`https://${file?.url}`}
+                    type={file.contentType}
+                  />
+                  Your browser does not support the audio tag.
+                </audio>
+              );
+            default:
+              return <div>Unsupported file type</div>;
           }
-          if (typeof children[0] === "string") {
+        },
+        [INLINES.HYPERLINK]: ({ data }, children) => {
+          let videoId;
+          if (data?.uri.includes("youtube"))
+            videoId = getYoutubeVideoId(data?.uri);
+          if (videoId) {
             return (
-              <div className="mb-6 max-w-full">
-                <div id="Embed" className="max-w-full"></div>
-              </div>
+              <iframe
+                width="560"
+                height="315"
+                src={`https://www.youtube.com/embed/${videoId}`}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+                title="Embedded YouTube video"
+                loading="lazy"
+                className="w-full max-w-3xl mx-auto h-60 md:h-custom-450 my-10"
+              />
             );
           } else {
-            return <p>{children}</p>;
-          }
-        }
-
-        const paragraphContent = children.reduce((acc, child) => {
-          // Add each part to the accumulator array
-          if (typeof child === "string") {
-            const parts = child.split(/(<\/?br\s*\/?>|<c>.*?<\/c>)/);
-            // Add each part to the accumulator array
-            acc.push(...parts);
-          } else {
-            acc.push(child);
-          }
-          return acc;
-        }, []);
-
-        const styledChildren = paragraphContent.map((part, index) => {
-          if (typeof part === "string") {
-            // Check if the part is enclosed in <c> tags
-            if (part.startsWith("<c>") && part.endsWith("</c>")) {
-              // Extract the text within <c> tags
-              const text = part.substring(3, part.length - 4);
-              // Apply CSS styling to the text
-              return (
-                <span
-                  key={index}
-                  className="bg-zinc-900 dark:bg-zinc-50 text-zinc-50 dark:text-red-500 px-2.5 py-0.5"
+            return (
+              <>
+                <Link
+                  href={
+                    data?.uri && data?.uri.startsWith("https://")
+                      ? data?.uri
+                      : `https://${data?.uri}`
+                  }
+                  target="_blank"
+                  className="max-w-full break-words hover:underline text-secondary"
                 >
-                  {text}
-                </span>
-              );
-              s;
-            } else if (
-              part === "<br>" ||
-              part === "<br/>" ||
-              part === "<br />"
-            ) {
-              return <br key={index} />;
-            } else if (part === "") {
-              return <br key={index} />;
-            } else {
-              // If not enclosed in <c> tags, render the text as-is
-              return <span key={index}>{part}</span>;
-            }
-          } else {
-            // If the part is not a string, render it as-is
-            return part;
+                  {children}
+                </Link>
+              </>
+            );
           }
-        });
+        },
+        [BLOCKS.QUOTE]: (node, children) => {
+          return (
+            <blockquote className="p-4 my-4 border-s-4 border-gray-300 bg-gray-50 dark:border-gray-500 dark:bg-gray-800">
+              <div className="text-xl italic font-medium leading-relaxed text-gray-900 dark:text-white">
+                {children}
+              </div>
+            </blockquote>
+          );
+        },
+        [BLOCKS.TABLE]: (node, children) => {
+          return (
+            <div className="max-w-full overflow-x-auto hide-scrollbar">
+              <table className="my-7 w-full">{children}</table>
+            </div>
+          );
+        },
+        [BLOCKS.TABLE_HEADER_CELL]: (node, children) => {
+          return (
+            <th className="text-center border border-gray-700/50 text-gray-700 dark:border-zinc-400 px-3 py-1.5 uppercase bg-gray-200 dark:text-black dark:bg-zinc-100 font-bold font-apple_system text-xs tracking-wide leading-8">
+              {children}
+            </th>
+          );
+        },
+        [BLOCKS.TABLE_CELL]: (node, children) => {
+          return (
+            <td className="text-center border border-gray-700/50 text-black dark:text-zinc-950 dark:border-zinc-400 px-3 py-1.5 font-apple_system text-base leading-8 bg-white dark:bg-white">
+              {children}
+            </td>
+          );
+        },
+        [BLOCKS.PARAGRAPH]: (node, children) => {
+          const containsIframe = /<iframe.*<\/iframe>/i.test(children[0]);
+          if (containsIframe && typeof document !== "undefined") {
+            const iframeHTML = children[0];
+            const embedElement = document.querySelector("#Embed");
+            if (embedElement) {
+              embedElement.innerHTML = iframeHTML;
+              embedElement.classList.add("max-w-full");
+            }
+            if (typeof children[0] === "string") {
+              return (
+                <div className="mb-6 max-w-full">
+                  <div id="Embed" className="max-w-full"></div>
+                </div>
+              );
+            } else {
+              return <div>{children}</div>;
+            }
+          }
 
-        return <div>{styledChildren}</div>;
-      },
+          const paragraphContent = children.reduce((acc, child) => {
+            if (typeof child === "string") {
+              const parts = child.split(/(<\/?br\s*\/?>|<c>.*?<\/c>)/);
+              acc.push(...parts);
+            } else {
+              acc.push(child);
+            }
+            return acc;
+          }, []);
 
-      [BLOCKS.HEADING_1]: (node, children) => {
-        const headingId = getHeadingString(children[0]);
-        return (
-          <h2 id={headingId} className="mb-r mt-20 text-3xl">
-            {children}
-          </h2>
-        );
+          const styledChildren = paragraphContent.map((part, index) => {
+            if (typeof part === "string") {
+              if (part.startsWith("<c>") && part.endsWith("</c>")) {
+                const text = part.substring(3, part.length - 4);
+                return (
+                  <span
+                    key={index}
+                    className="bg-zinc-900 dark:bg-zinc-50 text-zinc-50 dark:text-red-500 px-2.5 py-0.5"
+                  >
+                    {text}
+                  </span>
+                );
+              } else if (
+                part === "<br>" ||
+                part === "<br/>" ||
+                part === "<br />"
+              ) {
+                return <br key={index} />;
+              } else if (part === "") {
+                return <br key={index} />;
+              } else {
+                return <span key={index}>{part}</span>;
+              }
+            } else {
+              return part;
+            }
+          });
+
+          return <div>{styledChildren}</div>;
+        },
+
+        [BLOCKS.HEADING_1]: (node, children) => {
+          const headingId = getHeadingString(children[0]);
+          return (
+            <h2 id={headingId} className="mb-r mt-20 text-3xl">
+              {children}
+            </h2>
+          );
+        },
+        [BLOCKS.HEADING_2]: (node, children) => {
+          const headingId = getHeadingString(children[0]);
+          return (
+            <h2 id={headingId} className="mb-6 text-2xl">
+              {children}
+            </h2>
+          );
+        },
+        [BLOCKS.HEADING_3]: (node, children) => {
+          const headingId = getHeadingString(children[0]);
+          return (
+            <h3 id={headingId} className="mb-5 text-xl">
+              {children}
+            </h3>
+          );
+        },
+        [BLOCKS.HEADING_4]: (node, children) => {
+          const headingId = getHeadingString(children[0]);
+          return (
+            <h4 id={headingId} className="mb-4 text-lg">
+              {children}
+            </h4>
+          );
+        },
+        [BLOCKS.HEADING_5]: (node, children) => {
+          const headingId = getHeadingString(children[0]);
+          return (
+            <h5 id={headingId} className="mb-3 text-base">
+              {children}
+            </h5>
+          );
+        },
+        [BLOCKS.HEADING_6]: (node, children) => {
+          const headingId = getHeadingString(children[0]);
+          return (
+            <h6 id={headingId} className="mb-2 text-sm">
+              {children}
+            </h6>
+          );
+        },
       },
-      [BLOCKS.HEADING_2]: (node, children) => {
-        const headingId = getHeadingString(children[0]);
-        return (
-          <h2 id={headingId} className="mb-6 text-2xl">
-            {children}
-          </h2>
-        );
-      },
-      [BLOCKS.HEADING_3]: (node, children) => {
-        const headingId = getHeadingString(children[0]);
-        return (
-          <h3 id={headingId} className="mb-5 text-xl">
-            {children}
-          </h3>
-        );
-      },
-      [BLOCKS.HEADING_4]: (node, children) => {
-        const headingId = getHeadingString(children[0]);
-        return (
-          <h4 id={headingId} className="mb-4 text-lg">
-            {children}
-          </h4>
-        );
-      },
-      [BLOCKS.HEADING_5]: (node, children) => {
-        const headingId = getHeadingString(children[0]);
-        return (
-          <h5 id={headingId} className="mb-3 text-base">
-            {children}
-          </h5>
-        );
-      },
-      [BLOCKS.HEADING_6]: (node, children) => {
-        const headingId = getHeadingString(children[0]);
-        return (
-          <h6 id={headingId} className="mb-2 text-sm">
-            {children}
-          </h6>
-        );
-      },
-    },
-  }));
+    }),
+    [theme]
+  );
 
   return (
     <>
