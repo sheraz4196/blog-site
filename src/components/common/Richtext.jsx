@@ -226,7 +226,6 @@ export default function Richtext({ data, truncate }) {
 
           const styledChildren = paragraphContent.map((part, index) => {
             if (typeof part === "string") {
-              console.log(part);
               if (part.startsWith("<c>") && part.endsWith("</c>")) {
                 const text = part.substring(3, part.length - 4);
                 return (

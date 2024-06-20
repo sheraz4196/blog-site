@@ -16,6 +16,7 @@ const getEntries = async (query) => {
   try {
     const filterQuery = {
       ...query,
+      "sys.publishedAt[exists]": true,
     };
     const data = await client.getEntries(filterQuery);
     return data;
