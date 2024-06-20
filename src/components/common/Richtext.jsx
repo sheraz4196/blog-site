@@ -236,7 +236,7 @@ export default function Richtext({ data, truncate }) {
             ) {
               return <br key={index} />;
             } else if (part === "") {
-              return <p className="h-1"></p>;
+              return <br key={index} />;
             } else {
               // If not enclosed in <c> tags, render the text as-is
               return <span key={index}>{part}</span>;
@@ -247,7 +247,7 @@ export default function Richtext({ data, truncate }) {
           }
         });
 
-        return <div className="mb-6">{styledChildren}</div>;
+        return <div>{styledChildren}</div>;
       },
 
       [BLOCKS.HEADING_1]: (node, children) => {
